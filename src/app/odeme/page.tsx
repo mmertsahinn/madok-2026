@@ -34,7 +34,14 @@ function OdemeForm() {
   }
 
   function handleDosyaSec(file: File) {
-    if (!KABUL_MIME.includes(file.type)) {
+    // Mobil tarayıcılar bazen image/jpg, boş veya octet-stream gönderir — normalize et
+    const rawMime = (file.type || '').split(';')[0].trim().toLowerCase();
+    const mime = rawMime === 'image/jpg' ? 'image/jpeg' : rawMime;
+    const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
+    const extGecerli = ['pdf', 'jpg', 'jpeg', 'png'].includes(ext);
+    const mimeGecerli = KABUL_MIME.includes(mime) ||
+      ((mime === 'application/octet-stream' || mime === '') && extGecerli);
+    if (!mimeGecerli) {
       setHatalar((h) => ({ ...h, dosya: "Yalnızca PDF, JPG veya PNG kabul edilir." }));
       return;
     }
@@ -274,7 +281,16 @@ function OdemeForm() {
         </div>
 
         {genelHata && (
-          <div style={genelHataBox}>{genelHata}</div>
+          <div style={genelHataBox}>
+            {genelHata}
+            <p style={{ marginTop: "0.5rem", fontSize: "0.8em", marginBottom: 0 }}>
+              Sorun devam ederse{" "}
+              <a href="mailto:madok.2026.burdur@gmail.com" style={{ color: "inherit", fontWeight: 700 }}>
+                madok.2026.burdur@gmail.com
+              </a>{" "}
+              adresine yazın.
+            </p>
+          </div>
         )}
 
         <button type="submit" disabled={durum === "loading"} style={submitBtn}>

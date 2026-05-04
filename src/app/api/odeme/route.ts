@@ -9,6 +9,24 @@ const MIME_TO_EXT: Record<string, string> = {
   'image/jpeg': 'jpg',
   'image/png': 'png',
 }
+const EXT_TO_MIME: Record<string, string> = {
+  'pdf': 'application/pdf',
+  'jpg': 'image/jpeg',
+  'jpeg': 'image/jpeg',
+  'png': 'image/png',
+}
+
+// Mobil tarayıcılar bazen image/jpg, application/octet-stream veya boş type gönderir
+function normalizeMime(rawType: string, filename: string): string {
+  let mime = rawType.split(';')[0].trim().toLowerCase()
+  if (mime === 'image/jpg') mime = 'image/jpeg'
+  // Belirsiz MIME → uzantıya göre çöz
+  if (!mime || mime === 'application/octet-stream') {
+    const ext = filename.split('.').pop()?.toLowerCase() ?? ''
+    mime = EXT_TO_MIME[ext] ?? mime
+  }
+  return mime
+}
 
 function odemeTransporter() {
   return nodemailer.createTransport({
@@ -53,8 +71,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Sunucu tarafı MIME-type doğrulama — strict
-    if (!ALLOWED_MIME_TYPES.includes(dekont.type)) {
+    // Sunucu tarafı MIME-type doğrulama — mobil fallback dahil
+    const mimeType = normalizeMime(dekont.type, dekont.name)
+    if (!ALLOWED_MIME_TYPES.includes(mimeType)) {
       return NextResponse.json(
         { error: 'Dekont yalnızca PDF, JPG veya PNG formatında yüklenebilir.' },
         { status: 400 }
@@ -68,7 +87,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const ext       = MIME_TO_EXT[dekont.type] ?? 'bin'
+    const ext       = MIME_TO_EXT[mimeType] ?? 'bin'
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
     const safeName  = `${isim.toUpperCase().replace(/\s+/g, '_')}-${soyisim.toUpperCase().replace(/\s+/g, '_')}`
     const filename  = `${timestamp}_${safeName}.${ext}`
@@ -78,7 +97,7 @@ export async function POST(request: NextRequest) {
     const { error: uploadError } = await supabase.storage
       .from('dekontlar')
       .upload(filename, buffer, {
-        contentType: dekont.type,
+        contentType: mimeType,
         upsert: false,
       })
 

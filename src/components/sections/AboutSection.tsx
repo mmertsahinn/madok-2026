@@ -65,7 +65,7 @@ export default function AboutSection() {
 
              <div style={{ marginBottom: "2rem" }}>
                <h3 style={{ fontSize: "1.5rem", fontWeight: 600 }}>Burdur Mehmet Akif Ersoy Üniversitesi</h3>
-               <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1rem" }}>İstiklal Yerleşkesi / Burdur, Türkiye</p>
+               <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1rem" }}>Merkez Kampüs / Burdur, Türkiye</p>
              </div>
 
              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>

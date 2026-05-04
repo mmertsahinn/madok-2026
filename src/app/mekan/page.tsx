@@ -82,7 +82,7 @@ export default function MekanPage() {
                 </p>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
                   Mehmet Akif Ersoy Üniversitesi<br />
-                  İstiklal Yerleşkesi<br />
+                  Merkez Kampüs<br />
                   15030 Burdur, Türkiye
                 </p>
 

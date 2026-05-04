@@ -32,7 +32,7 @@ export default function VenueSection() {
                   <div className="venue-info-icon"><MapPin size={20} /></div>
                   <div className="venue-info-text">
                     <h4>Adres</h4>
-                    <p>MAKÜ Konferans ve Sergi Salonu, İstiklal Yerleşkesi, Burdur</p>
+                    <p>MAKÜ Konferans ve Sergi Salonu, Merkez Kampüs, Burdur</p>
                   </div>
                 </div>
                 <div className="venue-info-item">

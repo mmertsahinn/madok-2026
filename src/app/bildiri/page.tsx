@@ -513,7 +513,18 @@ function BildiriForm() {
           {hatalar.dosya && <p style={errText}>{hatalar.dosya}</p>}
         </div>
 
-        {genelHata && <div style={genelHataBox}>{genelHata}</div>}
+        {genelHata && (
+          <div style={genelHataBox}>
+            {genelHata}
+            <p style={{ marginTop: "0.5rem", fontSize: "0.8em", marginBottom: 0 }}>
+              Sorun devam ederse{" "}
+              <a href="mailto:madok2026bildiri@gmail.com" style={{ color: "inherit", fontWeight: 700 }}>
+                madok2026bildiri@gmail.com
+              </a>{" "}
+              adresine yazın.
+            </p>
+          </div>
+        )}
 
         <button type="submit" disabled={durum === "loading"} style={submitBtn}>
           Bildiriyi Gönder

@@ -35,7 +35,7 @@ export default function IletisimPage() {
             <div className="info-card">
               <div className="info-card-icon" style={{ color: "var(--primary-600)" }}><MapPin size={24} /></div>
               <h3>Adres</h3>
-              <p>MAKÜ Konferans ve Sergi Salonu, İstiklal Yerleşkesi, Burdur, Türkiye</p>
+              <p>MAKÜ Konferans ve Sergi Salonu, Merkez Kampüs, Burdur, Türkiye</p>
             </div>
           </div>
         </div>

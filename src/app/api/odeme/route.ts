@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
 import { supabase } from '@/lib/supabase'
+import { resendOdeme, MAIL_FROM_ODEME } from '@/lib/resend'
+
+// ── Türkçe/özel karakterleri ASCII'ye çevir (Supabase Storage key'i ASCII ister) ──
+function toSafeFileName(str: string): string {
+  return str
+    .toUpperCase()
+    .replace(/Ğ/g, 'G').replace(/Ü/g, 'U').replace(/Ş/g, 'S')
+    .replace(/İ/g, 'I').replace(/Ö/g, 'O').replace(/Ç/g, 'C')
+    .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+    .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^A-Z0-9_\-]/g, '_')
+    .replace(/_+/g, '_')
+    .slice(0, 50)
+}
 
 // ── Sunucu tarafı MIME-type doğrulama — PDF, JPG, PNG ──
 const ALLOWED_MIME_TYPES = ['application/pdf', 'image/jpeg', 'image/png']
@@ -26,33 +39,6 @@ function normalizeMime(rawType: string, filename: string): string {
     mime = EXT_TO_MIME[ext] ?? mime
   }
   return mime
-}
-
-function odemeTransporter() {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER_ODEME,
-      pass: process.env.SMTP_PASS_ODEME,
-    },
-  })
-}
-
-async function mailKuyrugunaEkle(
-  mailType: string,
-  recipient: string,
-  subject: string,
-  payload: Record<string, unknown>
-) {
-  await supabase.from('mail_queue').insert({
-    mail_type: mailType,
-    recipient,
-    subject,
-    payload,
-    status: 'pending',
-  })
 }
 
 export async function POST(request: NextRequest) {
@@ -89,10 +75,10 @@ export async function POST(request: NextRequest) {
 
     const ext       = MIME_TO_EXT[mimeType] ?? 'bin'
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
-    const safeName  = `${isim.toUpperCase().replace(/\s+/g, '_')}-${soyisim.toUpperCase().replace(/\s+/g, '_')}`
+    const safeName  = `${toSafeFileName(isim)}-${toSafeFileName(soyisim)}`
     const filename  = `${timestamp}_${safeName}.${ext}`
 
-    // Supabase Storage'a yükle — dekontlar bucket
+    // ── Supabase Storage'a yükle — dekontlar bucket ──
     const buffer = Buffer.from(await dekont.arrayBuffer())
     const { error: uploadError } = await supabase.storage
       .from('dekontlar')
@@ -109,7 +95,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // odemeler tablosuna kaydet
+    // ── odemeler tablosuna kaydet ──
     const { error: insertError } = await supabase.from('odemeler').insert({
       isim,
       soyisim,
@@ -117,58 +103,55 @@ export async function POST(request: NextRequest) {
       paket,
       dekont_storage_path: filename,
     })
+    if (insertError) console.error('[odeme] DB insert error:', insertError)
 
-    if (insertError) {
-      console.error('[odeme] DB insert error:', insertError)
-    }
+    // ── Resend ile admin mailine gönder ──
+    const adminTo = process.env.MAIL_TO_ODEME ?? 'madok.2026.burdur@gmail.com'
 
-    // Mail gönder (başarısız olursa kuyruğa)
-    const mailPayload = { isim, soyisim, email, paket, filename }
-    try {
-      const transporter = odemeTransporter()
-      const from = `"MADOK 2026 Kayıt Sistemi" <${process.env.SMTP_USER_ODEME}>`
+    const { error: mailError } = await resendOdeme.emails.send({
+      from: MAIL_FROM_ODEME,
+      to: adminTo,
+      reply_to: email,
+      subject: `MADOK 2026 — Ödeme Bildirimi: ${isim} ${soyisim}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #8f6b56; border-bottom: 2px solid #e2d4c8; padding-bottom: 10px;">
+            MADOK 2026 — Ödeme Bildirimi
+          </h2>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr><td style="padding: 8px; color: #55524d; font-weight: bold; width: 140px;">Ad:</td><td style="padding: 8px;">${isim}</td></tr>
+            <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Soyad:</td><td style="padding: 8px;">${soyisim}</td></tr>
+            <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">E-posta:</td><td style="padding: 8px;">${email}</td></tr>
+            <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Paket:</td><td style="padding: 8px;">${paket}</td></tr>
+            <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Başvuru Tarihi:</td><td style="padding: 8px;">${new Date().toLocaleString('tr-TR')}</td></tr>
+            <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Dekont Dosyası:</td><td style="padding: 8px;">${filename}</td></tr>
+          </table>
+          <p style="margin-top: 24px; color: #918c84; font-size: 13px;">
+            Dekont dosyası ekte bulunmaktadır.
+          </p>
+          <p style="color: #918c84; font-size: 13px;">
+            Bu mail otomatik olarak MADOK 2026 kayıt sistemi tarafından gönderilmiştir.
+          </p>
+        </div>
+      `,
+      attachments: [
+        {
+          filename: filename,
+          content: buffer.toString('base64'),
+          content_type: mimeType,
+        },
+      ],
+    })
 
-      // Dosyayı Storage'dan al, ek olarak gönder
-      const { data: fileData } = await supabase.storage.from('dekontlar').download(filename)
-      const fileBuffer = fileData ? Buffer.from(await fileData.arrayBuffer()) : null
-
-      await transporter.sendMail({
-        from,
-        to: process.env.MAIL_TO_ODEME,
+    if (mailError) {
+      console.error('[odeme] Resend mail error:', mailError)
+      await supabase.from('mail_queue').insert({
+        mail_type: 'odeme_admin',
+        recipient: adminTo,
         subject: `MADOK 2026 — Ödeme Bildirimi: ${isim} ${soyisim}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #8f6b56; border-bottom: 2px solid #e2d4c8; padding-bottom: 10px;">
-              MADOK 2026 — Ödeme Bildirimi
-            </h2>
-            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-              <tr><td style="padding: 8px; color: #55524d; font-weight: bold; width: 140px;">Ad:</td><td style="padding: 8px;">${isim}</td></tr>
-              <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Soyad:</td><td style="padding: 8px;">${soyisim}</td></tr>
-              <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">E-posta:</td><td style="padding: 8px;">${email}</td></tr>
-              <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Paket:</td><td style="padding: 8px;">${paket}</td></tr>
-              <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Başvuru Tarihi:</td><td style="padding: 8px;">${new Date().toLocaleString('tr-TR')}</td></tr>
-              <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Dekont Dosyası:</td><td style="padding: 8px;">${filename}</td></tr>
-            </table>
-            <p style="margin-top: 24px; color: #918c84; font-size: 13px;">
-              Dekont dosyası ekte bulunmaktadır.
-            </p>
-            <p style="color: #918c84; font-size: 13px;">
-              Bu mail otomatik olarak MADOK 2026 kayıt sistemi tarafından gönderilmiştir.
-            </p>
-          </div>
-        `,
-        attachments: fileBuffer
-          ? [{ filename, content: fileBuffer }]
-          : [],
+        payload: { isim, soyisim, email, paket, filename },
+        status: 'pending',
       })
-    } catch (mailErr) {
-      console.error('[odeme] Mail gönderilemedi, kuyruğa eklendi:', mailErr)
-      await mailKuyrugunaEkle(
-        'odeme_admin',
-        process.env.MAIL_TO_ODEME!,
-        `MADOK 2026 — Ödeme Bildirimi: ${isim} ${soyisim}`,
-        mailPayload
-      )
     }
 
     return NextResponse.json({ success: true })

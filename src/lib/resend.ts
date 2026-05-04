@@ -1,12 +1,20 @@
 import { Resend } from 'resend'
 
-if (!process.env.RESEND_API_KEY) {
-  console.warn('[resend] RESEND_API_KEY ortam değişkeni tanımlı değil')
+// ── Bildiri + Poster mailleri için Resend ──
+if (!process.env.RESEND_API_KEY_BILDIRI) {
+  console.warn('[resend] RESEND_API_KEY_BILDIRI ortam değişkeni tanımlı değil')
 }
+export const resendBildiri = new Resend(process.env.RESEND_API_KEY_BILDIRI)
 
-export const resend = new Resend(process.env.RESEND_API_KEY)
+// ── Ödeme/Dekont mailleri için Resend ──
+if (!process.env.RESEND_API_KEY_ODEME) {
+  console.warn('[resend] RESEND_API_KEY_ODEME ortam değişkeni tanımlı değil')
+}
+export const resendOdeme = new Resend(process.env.RESEND_API_KEY_ODEME)
 
-// "from" adresi — Resend panelinden kendi domaininizi doğruladıktan sonra değiştirin
-// Örnek: 'MADOK 2026 <noreply@madok2026.com>'
-// Şimdilik onboarding@resend.dev (tüm alıcılara gönderebilir)
-export const MAIL_FROM = process.env.MAIL_FROM ?? 'MADOK 2026 <onboarding@resend.dev>'
+// From adresi — Resend panelinde onaylı domain gerekir
+// Şimdilik Resend'in test adresini kullan (production'da değiştir)
+export const MAIL_FROM_BILDIRI =
+  process.env.MAIL_FROM_BILDIRI ?? 'MADOK 2026 <onboarding@resend.dev>'
+export const MAIL_FROM_ODEME =
+  process.env.MAIL_FROM_ODEME ?? 'MADOK 2026 <onboarding@resend.dev>'

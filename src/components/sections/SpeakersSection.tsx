@@ -3,39 +3,39 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const speakers = [
   {
-    name: "Prof. Dr. Taha Özyürek",
+    name: "Prof. Dr. Taha ÖZYÜREK",
     unvan: "Prof. Dr.",
     alan: "Endodonti",
     img: "/hocalar/prof. dr. taha özyürek.jpeg",
   },
   {
-    name: "Prof. Dr. Mehmet Fatih Şentürk",
+    name: "Prof. Dr. Mehmet Fatih ŞENTÜRK",
     unvan: "Prof. Dr.",
-    alan: "Periodontoloji",
+    alan: "Ağız Diş Çene Cerrahisi",
     img: "/hocalar/prof.dr. mehmet fatih şentürk.jpeg",
   },
   {
-    name: "Do. Dr. Hakan Yasin Gönder",
+    name: "Doç. Dr. Hakan Yasin GÖNDER",
     unvan: "Doç. Dr.",
-    alan: "Ağız, Diş ve Çene Cerrahisi",
+    alan: "Restoratif Diş Tedavisi",
     img: "/hocalar/do.dr Hakan yasin gönder.jpeg",
   },
   {
-    name: "Dr. Öğr. Üyesi Abdurrahman Yalçın",
+    name: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",
     unvan: "Dr. Öğr. Üyesi",
-    alan: "Protetik Diş Tedavisi",
+    alan: "Restoratif Diş Tedavisi",
     img: "/hocalar/dr.öğr.üyesi abdurrahman yalçın.jpeg",
   },
   {
-    name: "Dt. Onur Yedikara",
+    name: "Dt. Onur YEDİKARA",
     unvan: "Dt.",
-    alan: "Ortodonti",
+    alan: "Pratisyen",
     img: "/hocalar/dt.onur yedikara.jpeg",
   },
   {
-    name: "Uzm. Dt. Burakt Mengütaş",
+    name: "Uzm. Dt. Burak MENGÜTAŞ",
     unvan: "Uzm. Dt.",
-    alan: "Pedodonti",
+    alan: "Ağız Diş Çene Cerrahisi",
     img: "/hocalar/uzm.dt. burakt mengütaş.jpeg",
   },
 ];

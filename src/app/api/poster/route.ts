@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
     const { error: mailError } = await resendBildiri.emails.send({
       from: MAIL_FROM_BILDIRI,
       to: adminTo,
-      reply_to: email,
+      replyTo: email,
       subject: `MADOK 2026 — Poster Gönderimi: ${isim} ${soyisim}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

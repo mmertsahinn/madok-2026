@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     const { error: mailError } = await resendOdeme.emails.send({
       from: MAIL_FROM_ODEME,
       to: adminTo,
-      reply_to: email,
+      replyTo: email,
       subject: `MADOK 2026 — Ödeme Bildirimi: ${isim} ${soyisim}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

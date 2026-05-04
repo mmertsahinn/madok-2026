@@ -1,20 +1,44 @@
+import Image from "next/image";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const speakers = [
-  { name: "Prof. Dr. Ahmet Yılmaz", specialty: "Biyomedikal Mühendislik", title: "Prof. Dr.", topic: "Yapay Zeka ve Klinik Uygulamalar" },
-  { name: "Doç. Dr. Elif Demir", specialty: "Moleküler Biyoloji", title: "Doç. Dr.", topic: "Genomik Tıpta Yeni Paradigmalar" },
-  { name: "Prof. Dr. Mehmet Kaya", specialty: "Nörobilim", title: "Prof. Dr.", topic: "Beyin-Bilgisayar Arayüzleri ve Gelecek" },
-  { name: "Dr. Ayşe Çelik", specialty: "Farmakoloji", title: "Dr.", topic: "Kişiselleştirilmiş Tıp Uygulamaları" },
-  { name: "Prof. Dr. Hasan Öztürk", specialty: "Tıbbi Görüntüleme", title: "Prof. Dr.", topic: "Dijital Patolojide Derin Öğrenme" },
-  { name: "Doç. Dr. Zeynep Arslan", specialty: "Kardiyoloji", title: "Doç. Dr.", topic: "Minimal İnvaziv Kardiyak Teknolojiler" },
-  { name: "Dr. Can Erdoğan", specialty: "Robotik Cerrahi", title: "Dr.", topic: "Robot Destekli Cerrahi Prosedürler" },
-  { name: "Prof. Dr. Fatma Şahin", specialty: "İmmünoloji", title: "Prof. Dr.", topic: "Kanser İmmünoterapisinde Güncel Yaklaşımlar" },
+  {
+    name: "Prof. Dr. Taha Özyürek",
+    unvan: "Prof. Dr.",
+    alan: "Endodonti",
+    img: "/hocalar/prof. dr. taha özyürek.jpeg",
+  },
+  {
+    name: "Prof. Dr. Mehmet Fatih Şentürk",
+    unvan: "Prof. Dr.",
+    alan: "Periodontoloji",
+    img: "/hocalar/prof.dr. mehmet fatih şentürk.jpeg",
+  },
+  {
+    name: "Do. Dr. Hakan Yasin Gönder",
+    unvan: "Doç. Dr.",
+    alan: "Ağız, Diş ve Çene Cerrahisi",
+    img: "/hocalar/do.dr Hakan yasin gönder.jpeg",
+  },
+  {
+    name: "Dr. Öğr. Üyesi Abdurrahman Yalçın",
+    unvan: "Dr. Öğr. Üyesi",
+    alan: "Protetik Diş Tedavisi",
+    img: "/hocalar/dr.öğr.üyesi abdurrahman yalçın.jpeg",
+  },
+  {
+    name: "Dt. Onur Yedikara",
+    unvan: "Dt.",
+    alan: "Ortodonti",
+    img: "/hocalar/dt.onur yedikara.jpeg",
+  },
+  {
+    name: "Uzm. Dt. Burakt Mengütaş",
+    unvan: "Uzm. Dt.",
+    alan: "Pedodonti",
+    img: "/hocalar/uzm.dt. burakt mengütaş.jpeg",
+  },
 ];
-
-const initials = (name: string) => {
-  const parts = name.replace(/Prof\.|Dr\.|Doç\./g, "").trim().split(" ");
-  return parts.filter(p => p.length > 1).slice(0, 2).map(p => p[0]).join("");
-};
 
 export default function SpeakersSection() {
   return (
@@ -34,12 +58,20 @@ export default function SpeakersSection() {
           {speakers.map((s, i) => (
             <ScrollReveal key={i}>
               <div className="speaker-card">
-                <div className="speaker-avatar">{initials(s.name)}</div>
+                <div className="speaker-avatar" style={{ padding: 0, overflow: "hidden", background: "transparent" }}>
+                  <Image
+                    src={s.img}
+                    alt={s.name}
+                    width={120}
+                    height={120}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+                    unoptimized
+                  />
+                </div>
                 <div className="speaker-info">
-                  <p className="speaker-specialty">{s.specialty}</p>
+                  <p className="speaker-specialty">{s.alan}</p>
                   <h3 className="speaker-name">{s.name}</h3>
-                  <p className="speaker-title-text">{s.title}</p>
-                  <p className="speaker-topic">{s.topic}</p>
+                  <p className="speaker-title-text">{s.unvan}</p>
                 </div>
               </div>
             </ScrollReveal>

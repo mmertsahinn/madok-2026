@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
           </div>
         `,
         attachments: fileBuffer
-          ? [{ filename, content: fileBuffer.toString('base64'), content_type: dekont.type }]
+          ? [{ filename, content: fileBuffer.toString('base64'), contentType: dekont.type }]
           : [],
       })
 

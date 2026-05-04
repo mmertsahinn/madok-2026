@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
         {
           filename: filename,
           content: buffer.toString('base64'),
-          content_type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         },
       ],
     })

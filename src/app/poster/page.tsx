@@ -51,13 +51,12 @@ const UNIVERSITELER = [
   "Bursa Teknik Üniversitesi",
   "Bursa Uludağ Üniversitesi",
   "Çanakkale Onsekiz Mart Üniversitesi",
-  "Çankaya Üniversitesi",
   "Çankırı Karatekin Üniversitesi",
   "Çukurova Üniversitesi",
   "Dicle Üniversitesi",
   "Doğu Akdeniz Üniversitesi",
-  "Doğuş Üniversitesi",
   "Dokuz Eylül Üniversitesi",
+  "Dumlupınar Üniversitesi",
   "Düzce Üniversitesi",
   "Ege Üniversitesi",
   "Erciyes Üniversitesi",
@@ -66,32 +65,29 @@ const UNIVERSITELER = [
   "Eskişehir Osmangazi Üniversitesi",
   "Eskişehir Teknik Üniversitesi",
   "Fatih Sultan Mehmet Vakıf Üniversitesi",
-  "Fenerbahçe Üniversitesi",
   "Fırat Üniversitesi",
   "Galatasaray Üniversitesi",
-  "Gazi Üniversitesi",
   "Gaziantep İslam Bilim ve Teknoloji Üniversitesi",
   "Gaziantep Üniversitesi",
   "Gebze Teknik Üniversitesi",
   "Giresun Üniversitesi",
   "Gümüşhane Üniversitesi",
-  "Hakkari Üniversitesi",
   "Hacettepe Üniversitesi",
+  "Hakkari Üniversitesi",
   "Harran Üniversitesi",
   "Hatay Mustafa Kemal Üniversitesi",
   "Hitit Üniversitesi",
   "Iğdır Üniversitesi",
   "Isparta Uygulamalı Bilimler Üniversitesi",
-  "İbn Haldun Üniversitesi",
   "İnönü Üniversitesi",
   "İskenderun Teknik Üniversitesi",
-  "İstanbul 29 Mayıs Üniversitesi",
   "İstanbul Arel Üniversitesi",
   "İstanbul Atlas Üniversitesi",
   "İstanbul Aydın Üniversitesi",
   "İstanbul Bilgi Üniversitesi",
   "İstanbul Bilim Üniversitesi",
   "İstanbul Esenyurt Üniversitesi",
+  "İstanbul Gedik Üniversitesi",
   "İstanbul Gelişim Üniversitesi",
   "İstanbul Kent Üniversitesi",
   "İstanbul Kültür Üniversitesi",
@@ -101,7 +97,6 @@ const UNIVERSITELER = [
   "İstanbul Okan Üniversitesi",
   "İstanbul Rumeli Üniversitesi",
   "İstanbul Sabahattin Zaim Üniversitesi",
-  "İstanbul Sağlık ve Teknoloji Üniversitesi",
   "İstanbul Teknik Üniversitesi",
   "İstanbul Ticaret Üniversitesi",
   "İstanbul Topkapı Üniversitesi",
@@ -119,24 +114,21 @@ const UNIVERSITELER = [
   "Kahramanmaraş Sütçü İmam Üniversitesi",
   "Karabük Üniversitesi",
   "Karadeniz Teknik Üniversitesi",
-  "Karamanoğlu Mehmetbey Üniversitesi",
   "Kastamonu Üniversitesi",
   "Kayseri Üniversitesi",
+  "Kilis 7 Aralık Üniversitesi",
   "Kırıkkale Üniversitesi",
   "Kırklareli Üniversitesi",
   "Kırşehir Ahi Evran Üniversitesi",
-  "Kilis 7 Aralık Üniversitesi",
-  "KTO Karatay Üniversitesi",
   "Koç Üniversitesi",
+  "Kocaeli Üniversitesi",
   "Konya Teknik Üniversitesi",
   "Kütahya Dumlupınar Üniversitesi",
   "Kütahya Sağlık Bilimleri Üniversitesi",
   "Malatya Turgut Özal Üniversitesi",
-  "Maltepe Üniversitesi",
   "Manisa Celal Bayar Üniversitesi",
   "Mardin Artuklu Üniversitesi",
   "Marmara Üniversitesi",
-  "MEF Üniversitesi",
   "Mersin Üniversitesi",
   "Mimar Sinan Güzel Sanatlar Üniversitesi",
   "Muğla Sıtkı Koçman Üniversitesi",
@@ -145,7 +137,7 @@ const UNIVERSITELER = [
   "Necmettin Erbakan Üniversitesi",
   "Nevşehir Hacı Bektaş Veli Üniversitesi",
   "Niğde Ömer Halisdemir Üniversitesi",
-  "Nişantaşı Üniversitesi",
+  "Nuh Naci Yazgan Üniversitesi",
   "Ondokuz Mayıs Üniversitesi",
   "Ordu Üniversitesi",
   "Orta Doğu Teknik Üniversitesi",
@@ -165,65 +157,50 @@ const UNIVERSITELER = [
   "Sivas Cumhuriyet Üniversitesi",
   "Sivas Bilim ve Teknoloji Üniversitesi",
   "Şırnak Üniversitesi",
-  "TOBB Ekonomi ve Teknoloji Üniversitesi",
+  "Tarsus Üniversitesi",
   "Tekirdağ Namık Kemal Üniversitesi",
+  "TOBB Ekonomi ve Teknoloji Üniversitesi",
   "Tokat Gaziosmanpaşa Üniversitesi",
   "Trabzon Üniversitesi",
   "TED Üniversitesi",
   "Trakya Üniversitesi",
   "Türk-Alman Üniversitesi",
   "Türk-Japon Bilim ve Teknoloji Üniversitesi",
-  "Türkiye-Japonya Bilim ve Teknoloji Üniversitesi",
   "Uşak Üniversitesi",
   "Üsküdar Üniversitesi",
   "Van Yüzüncü Yıl Üniversitesi",
-  "Yaşar Üniversitesi",
+  "Yalova Üniversitesi",
   "Yeditepe Üniversitesi",
   "Yıldız Teknik Üniversitesi",
   "Yozgat Bozok Üniversitesi",
   "Yüksek İhtisas Üniversitesi",
   "Zonguldak Bülent Ecevit Üniversitesi",
-  "Diğer Kurum / Üniversite",
-].sort((a, b) => a.localeCompare(b, "tr"));
+];
 
-/* ── ÜNİVERSİTE AUTOCOMPLETE ── */
-function UniversiteInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (val: string) => void;
-}) {
+function normalize(s: string) {
+  return s.toLowerCase()
+    .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
+    .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c");
+}
+
+function UniversiteInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState(value);
-  const wrapRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const filtered = query.length >= 1
-    ? UNIVERSITELER.filter((u) =>
-        u.toLowerCase().replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
-          .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
-          .includes(
-            query.toLowerCase().replace(/ğ/g, "g").replace(/ü/g, "u")
-              .replace(/ş/g, "s").replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
-          )
-      ).slice(0, 8)
-    : [];
+  useEffect(() => { setQuery(value); }, [value]);
 
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
+    function outside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("mousedown", outside);
+    return () => document.removeEventListener("mousedown", outside);
   }, []);
 
-  function handleInput(e: ChangeEvent<HTMLInputElement>) {
-    setQuery(e.target.value);
-    onChange(e.target.value);
-    setOpen(true);
-  }
+  const filtered = query.trim().length >= 2
+    ? UNIVERSITELER.filter(u => normalize(u).includes(normalize(query))).slice(0, 8)
+    : [];
 
   function select(uni: string) {
     setQuery(uni);
@@ -232,30 +209,24 @@ function UniversiteInput({
   }
 
   return (
-    <div ref={wrapRef} style={{ position: "relative" }}>
+    <div ref={ref} style={{ position: "relative" }}>
       <input
         value={query}
-        onChange={handleInput}
-        onFocus={() => query.length >= 1 && setOpen(true)}
+        onChange={e => { setQuery(e.target.value); onChange(e.target.value); setOpen(true); }}
+        onFocus={() => query.trim().length >= 2 && setOpen(true)}
         style={inputStyle}
-        placeholder="Üniversite veya kurum adı yazın..."
+        placeholder="Üniversite veya kurum adı"
         autoComplete="off"
       />
       {open && filtered.length > 0 && (
-        <ul style={dropdownList}>
-          {filtered.map((uni) => {
-            const idx = uni.toLowerCase()
-              .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
-              .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
-              .indexOf(
-                query.toLowerCase().replace(/ğ/g, "g").replace(/ü/g, "u")
-                  .replace(/ş/g, "s").replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
-              );
+        <ul style={dropdownList} className="uni-dropdown">
+          {filtered.map(uni => {
+            const idx = normalize(uni).indexOf(normalize(query));
             const before = idx >= 0 ? uni.slice(0, idx) : uni;
             const match  = idx >= 0 ? uni.slice(idx, idx + query.length) : "";
             const after  = idx >= 0 ? uni.slice(idx + query.length) : "";
             return (
-              <li key={uni} onMouseDown={() => select(uni)} style={dropdownItem}>
+              <li key={uni} onMouseDown={() => select(uni)} style={dropdownItem} className="uni-item">
                 {before}
                 <strong style={{ color: "var(--primary-700)" }}>{match}</strong>
                 {after}
@@ -269,7 +240,7 @@ function UniversiteInput({
 }
 
 /* ── ANA FORM ── */
-function BildiriForm() {
+function PosterForm() {
   const [form, setForm] = useState({ isim: "", soyisim: "", email: "", kurum: "", baslik: "" });
   const [dosya, setDosya] = useState<File | null>(null);
   const [dragging, setDragging] = useState(false);
@@ -316,8 +287,8 @@ function BildiriForm() {
     if (!form.soyisim.trim()) yeni.soyisim = "Soyad alanı zorunludur.";
     if (!form.email.trim()) yeni.email = "E-posta alanı zorunludur.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) yeni.email = "Geçerli bir e-posta adresi girin.";
-    if (!form.baslik.trim()) yeni.baslik = "Bildiri başlığı zorunludur.";
-    if (!dosya) yeni.dosya = "Bildiri dosyası (.docx) yüklenmeden gönderilemez.";
+    if (!form.baslik.trim()) yeni.baslik = "Poster başlığı zorunludur.";
+    if (!dosya) yeni.dosya = "Poster dosyası (.docx) yüklenmeden gönderilemez.";
     setHatalar(yeni);
     return Object.keys(yeni).length === 0;
   }
@@ -333,7 +304,7 @@ function BildiriForm() {
     fd.append("dosya", dosya!);
 
     try {
-      const res = await fetch("/api/bildiri", { method: "POST", body: fd });
+      const res = await fetch("/api/poster", { method: "POST", body: fd });
       const json = await res.json();
       if (!res.ok) { setGenelHata(json.error || "Bir hata oluştu."); setDurum("idle"); return; }
       setDurum("success");
@@ -359,15 +330,15 @@ function BildiriForm() {
               style={{ animation: "madok-check 0.5s ease forwards 0.3s" }}/>
           </svg>
         </div>
-        <h2 style={successTitle}>Bildiriniz Alındı</h2>
+        <h2 style={successTitle}>Posteriniz Alındı</h2>
         <p style={successDesc}>
-          Bildiriniz bilimsel komiteye iletildi. Değerlendirme sonucu{" "}
+          Posteriniz bilimsel komiteye iletildi. Değerlendirme sonucu{" "}
           <strong>{form.email}</strong> adresine bildirilecektir.
         </p>
         <div style={nextStepsBox}>
           <div style={nextStepsTitle}>Sonraki Adımlar</div>
           {[
-            "Bilimsel komite bildirinizi değerlendirecektir.",
+            "Bilimsel komite posterinizi değerlendirecektir.",
             "Kabul / ret kararı e-posta ile iletilecektir.",
             "Kabul sonrası kongre kaydını tamamlamanız gerekmektedir.",
           ].map((step, i) => (
@@ -404,22 +375,22 @@ function BildiriForm() {
       <form onSubmit={handleSubmit} style={{ maxWidth: "640px", margin: "0 auto" }} noValidate>
         {/* Kurallar */}
         <div style={amberBox}>
-          <div style={amberTitle}>Bildiri Gönderim Kuralları</div>
+          <div style={amberTitle}>Poster Gönderim Kuralları</div>
           <ul style={amberList}>
-            <li>Bildiriniz <strong>yalnızca .docx</strong> (Microsoft Word) formatında kabul edilmektedir.</li>
-            <li>Bildiri şablonunu kullanmanız zorunludur; şablona uymayan bildiriler reddedilebilir.</li>
-            <li>Her katılımcı en fazla <strong>2 bildiri</strong> gönderebilir.</li>
-            <li>Bildiri kabul sonrası kongre kaydını tamamlamak zorunludur.</li>
+            <li>Posteriniz <strong>yalnızca .docx</strong> (Microsoft Word) formatında kabul edilmektedir.</li>
+            <li>Poster şablonunu kullanmanız zorunludur; şablona uymayan posterler reddedilebilir.</li>
+            <li>Her katılımcı en fazla <strong>2 poster</strong> gönderebilir.</li>
+            <li>Poster kabul sonrası kongre kaydını tamamlamak zorunludur.</li>
           </ul>
         </div>
 
         {/* Şablon */}
         <div style={templateBox}>
           <div style={{ flex: 1 }}>
-            <div style={templateLabel}>Bildiri Şablonu</div>
+            <div style={templateLabel}>Poster Şablonu</div>
             <div style={templateDesc}>Şablonu indirip doldurduktan sonra .docx olarak yükleyin</div>
           </div>
-          <a href="/sablonlar/bildiri-sablon.docx" download style={templateBtn}>
+          <a href="/sablonlar/poster-sablon.docx" download style={templateBtn}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M7 2v8M7 10l-3-3M7 10l3-3M2 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -457,16 +428,16 @@ function BildiriForm() {
         </div>
 
         <div style={{ marginBottom: "1.5rem" }}>
-          <label style={labelStyle}>Bildiri Başlığı <span style={req}>*</span></label>
+          <label style={labelStyle}>Poster Başlığı <span style={req}>*</span></label>
           <input name="baslik" value={form.baslik} onChange={handleChange}
             style={{ ...inputStyle, ...(hatalar.baslik ? errBorder : {}) }}
-            placeholder="Bildirinizin tam başlığı"/>
+            placeholder="Posterinizin tam başlığı"/>
           {hatalar.baslik && <p style={errText}>{hatalar.baslik}</p>}
         </div>
 
         {/* Dosya */}
         <div style={{ marginBottom: "1.5rem" }}>
-          <label style={labelStyle}>Bildiri Dosyası (.docx) <span style={req}>*</span></label>
+          <label style={labelStyle}>Poster Dosyası (.docx) <span style={req}>*</span></label>
           <div
             onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
             onDragLeave={() => setDragging(false)}
@@ -516,14 +487,14 @@ function BildiriForm() {
         {genelHata && <div style={genelHataBox}>{genelHata}</div>}
 
         <button type="submit" disabled={durum === "loading"} style={submitBtn}>
-          Bildiriyi Gönder
+          Posteri Gönder
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
 
         <p style={{ color: "var(--text-muted)", fontSize: "0.78rem", textAlign: "center", marginTop: "1rem", lineHeight: 1.6 }}>
-          Bildiriniz bilimsel komiteye iletilecek ve değerlendirme sonucu e-posta ile bildirilecektir.
+          Posteriniz bilimsel komiteye iletilecek ve değerlendirme sonucu e-posta ile bildirilecektir.
         </p>
       </form>
     </>
@@ -565,7 +536,7 @@ const submitBtn: React.CSSProperties = { width: "100%", padding: "1rem", backgro
 const dropdownList: React.CSSProperties = { position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0, background: "white", border: "1px solid var(--neutral-200)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.1)", zIndex: 50, listStyle: "none", padding: "0.4rem", maxHeight: "260px", overflowY: "auto" };
 const dropdownItem: React.CSSProperties = { padding: "0.65rem 1rem", borderRadius: "8px", cursor: "pointer", fontFamily: "var(--font-ui)", fontSize: "0.875rem", color: "var(--text-secondary)", transition: "background 0.15s" };
 
-export default function BildiriPage() {
+export default function PosterPage() {
   return (
     <>
       <Navbar />
@@ -578,19 +549,19 @@ export default function BildiriPage() {
       `}</style>
       <section className="packages-hero">
         <div className="section-container">
-          <p className="section-overline">Bilimsel Bildiri</p>
+          <p className="section-overline">Bilimsel Poster</p>
           <h1 className="section-title" style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)", marginBottom: "1rem" }}>
-            Bildiri Gönder
+            Poster Gönder
           </h1>
           <p className="section-desc" style={{ marginBottom: 0 }}>
-            Bildirinizi .docx formatında hazırlayın ve aşağıdaki formu doldurun.
+            Posterinizi .docx formatında hazırlayın ve aşağıdaki formu doldurun.
           </p>
         </div>
       </section>
 
       <section className="section">
         <div className="section-container">
-          <BildiriForm />
+          <PosterForm />
         </div>
       </section>
 

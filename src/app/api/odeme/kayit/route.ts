@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { resend, MAIL_FROM } from '@/lib/resend'
 import { supabase } from '@/lib/supabase'
 
 function refKoduUret(): string {
@@ -71,26 +71,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Kayıt oluşturulamadı. Lütfen tekrar deneyin.' }, { status: 500 })
     }
 
-    // Mail gönder — başarısız olursa kuyruğa ekle (veri kaybolmaz)
+    // Mail gönder via Resend — başarısız olursa kuyruğa ekle (veri kaybolmaz)
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://madok-2026.netlify.app'
     const mailPayload = { isim: isim.trim(), soyisim: soyisim.trim(), email: email.trim(), refKodu, paket: paket.trim() }
     try {
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT ?? 587),
-        secure: process.env.SMTP_SECURE === 'true',
-        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-      })
-
-      await transporter.sendMail({
-        from: `"MADOK 2026 Kayıt Sistemi" <${process.env.SMTP_USER}>`,
-        to: email.trim(),
+      await resend.emails.send({
+        from: MAIL_FROM,
+        to: [email.trim()],
         subject: `MADOK 2026 — Başvuru Referans Kodunuz: ${refKodu}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #8f6b56; border-bottom: 2px solid #e2d4c8; padding-bottom: 10px;">
               MADOK 2026 — Ön Kayıt Alındı
             </h2>
-            <p>Sayın <strong>${isim} ${soyisim}</strong>,</p>
+            <p>Sayın <strong>${isim.trim()} ${soyisim.trim()}</strong>,</p>
             <p>Ön kaydınız alınmıştır. Başvurunuzu tamamlamak için aşağıdaki adımları izleyin:</p>
             <div style="background: #fdf6db; border: 2px solid #f6d988; border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; text-align: center;">
               <p style="margin: 0 0 0.5rem; color: #77461e; font-size: 0.9rem;">Referans Kodunuz</p>
@@ -98,9 +92,9 @@ export async function POST(request: NextRequest) {
               <p style="margin: 0.5rem 0 0; color: #77461e; font-size: 0.8rem;">Bu kodu havale açıklamasına ve dekont yükleme formuna yazın</p>
             </div>
             <ol style="line-height: 2; color: #55524d;">
-              <li>Aşağıdaki IBAN'a <strong>${paket}</strong> ücretini havale/EFT yapın</li>
+              <li>Aşağıdaki IBAN'a <strong>${paket.trim()}</strong> ücretini havale/EFT yapın</li>
               <li>Havale açıklamasına <strong>"${refKodu}"</strong> yazın</li>
-              <li><a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://madok2026.com'}/odeme" style="color: #8f6b56;">madok2026.com/odeme</a> adresine gidip <strong>Adım 2</strong>'yi tamamlayın</li>
+              <li><a href="${siteUrl}/odeme" style="color: #8f6b56;">${siteUrl}/odeme</a> adresine gidip <strong>Adım 2</strong>'yi tamamlayın</li>
               <li>Dekont PDF'ini ref kodunuzla birlikte yükleyin</li>
             </ol>
             <div style="background: #f8f6f3; border-radius: 8px; padding: 1rem 1.5rem; margin-top: 1.5rem; font-size: 0.85rem; color: #55524d; line-height: 1.9;">
@@ -110,14 +104,19 @@ export async function POST(request: NextRequest) {
               <strong>Açıklama:</strong> ${refKodu}
             </div>
             <p style="margin-top: 1.5rem; color: #918c84; font-size: 0.8rem;">
-              Seçilen paket: ${paket} &nbsp;·&nbsp; ${new Date().toLocaleString('tr-TR')}
+              Seçilen paket: ${paket.trim()} &nbsp;·&nbsp; ${new Date().toLocaleString('tr-TR')}
             </p>
           </div>
         `,
       })
     } catch (mailErr) {
       console.error('[odeme/kayit] Mail gönderilemedi, kuyruğa eklendi:', mailErr)
-      await mailKuyrugunaEkle('kayit_ref_kodu', email.trim(), `MADOK 2026 — Başvuru Referans Kodunuz: ${refKodu}`, mailPayload)
+      await mailKuyrugunaEkle(
+        'kayit_ref_kodu',
+        email.trim(),
+        `MADOK 2026 — Başvuru Referans Kodunuz: ${refKodu}`,
+        mailPayload
+      )
     }
 
     return NextResponse.json({ success: true, refKodu })

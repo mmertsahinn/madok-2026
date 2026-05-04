@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { resend, MAIL_FROM } from '@/lib/resend'
 import { supabase } from '@/lib/supabase'
 
 // ── İzin verilen MIME tipleri (sunucu tarafı doğrulama) ──
@@ -18,18 +18,6 @@ async function mailKuyrugunaEkle(
     subject,
     payload,
     status: 'pending',
-  })
-}
-
-function odemeTransporter() {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER_ODEME,
-      pass: process.env.SMTP_PASS_ODEME,
-    },
   })
 }
 
@@ -118,18 +106,16 @@ export async function POST(request: NextRequest) {
       console.error('[odeme/dekont] odemeler insert error:', odemeInsertError)
     }
 
-    // Mail gönder (başarısız olursa kuyruğa)
+    // Mail gönder via Resend (başarısız olursa kuyruğa)
     try {
-      const transporter = odemeTransporter()
-      const from = `"MADOK 2026 Kayıt Sistemi" <${process.env.SMTP_USER_ODEME}>`
-
-      // Admin'e — dosyayı Storage'dan al, ek olarak gönder
       const { data: fileData } = await supabase.storage.from('dekontlar').download(filename)
       const fileBuffer = fileData ? Buffer.from(await fileData.arrayBuffer()) : null
 
-      await transporter.sendMail({
-        from,
-        to: process.env.MAIL_TO_ODEME,
+      // Admin'e
+      await resend.emails.send({
+        from: MAIL_FROM,
+        to: [process.env.MAIL_TO_ODEME!],
+        replyTo: kayit.email,
         subject: `MADOK 2026 — Ödeme Onay Bekliyor: ${kayit.isim} ${kayit.soyisim} [${refKodu}]`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -153,9 +139,9 @@ export async function POST(request: NextRequest) {
       })
 
       // Kullanıcıya
-      await transporter.sendMail({
-        from,
-        to: kayit.email,
+      await resend.emails.send({
+        from: MAIL_FROM,
+        to: [kayit.email],
         subject: `MADOK 2026 — Dekontunuz Alındı [${refKodu}]`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

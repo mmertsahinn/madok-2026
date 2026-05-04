@@ -58,6 +58,7 @@ export default function Navbar() {
               <Link href="/paketler">Kayıt & Paketler</Link>
               <Link href="/odeme">Ödeme & Dekont</Link>
               <Link href="/bildiri">Bildiri Gönder</Link>
+              <Link href="/poster">Poster Gönder</Link>
               <Link href="/mekan">Konaklama & Ulaşım</Link>
             </div>
           </li>

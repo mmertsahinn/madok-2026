@@ -1,24 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import { supabase } from '@/lib/supabase'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
+const MAIL_FROM = 'MADOK 2026 <onboarding@resend.dev>'
 
 // ── Sunucu tarafı MIME-type doğrulama — SADECE .docx ──
 const ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]
-// application/msword ve application/octet-stream güvenilmez — reddedilir
-
-function bildiriTransporter() {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER_BILDIRI,
-      pass: process.env.SMTP_PASS_BILDIRI,
-    },
-  })
-}
 
 async function mailKuyrugunaEkle(
   mailType: string,
@@ -38,18 +28,17 @@ async function mailKuyrugunaEkle(
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
-    const isim = (formData.get('isim') as string)?.trim()
+    const isim    = (formData.get('isim')    as string)?.trim()
     const soyisim = (formData.get('soyisim') as string)?.trim()
-    const email = (formData.get('email') as string)?.trim()
-    const kurum = (formData.get('kurum') as string)?.trim()
-    const baslik = (formData.get('baslik') as string)?.trim()
-    const dosya = formData.get('dosya') as File | null
+    const email   = (formData.get('email')   as string)?.trim()
+    const kurum   = (formData.get('kurum')   as string)?.trim()
+    const baslik  = (formData.get('baslik')  as string)?.trim()
+    const dosya   = formData.get('dosya') as File | null
 
     if (!isim || !soyisim || !email || !baslik || !dosya) {
       return NextResponse.json({ error: 'Tüm zorunlu alanlar doldurulmalıdır.' }, { status: 400 })
     }
 
-    // Sunucu tarafı MIME-type doğrulama — strict
     if (!ALLOWED_MIME_TYPES.includes(dosya.type)) {
       return NextResponse.json(
         { error: 'Poster yalnızca .docx (Word) formatında yüklenmelidir.' },
@@ -59,10 +48,7 @@ export async function POST(request: NextRequest) {
 
     const ext = dosya.name.split('.').pop()?.toLowerCase()
     if (ext !== 'docx') {
-      return NextResponse.json(
-        { error: 'Dosya uzantısı .docx olmalıdır.' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Dosya uzantısı .docx olmalıdır.' }, { status: 400 })
     }
 
     if (dosya.size > 10 * 1024 * 1024) {
@@ -70,8 +56,8 @@ export async function POST(request: NextRequest) {
     }
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
-    const safeName = `${isim.toUpperCase().replace(/\s+/g, '_')}-${soyisim.toUpperCase().replace(/\s+/g, '_')}`
-    const filename = `${timestamp}_${safeName}.docx`
+    const safeName  = `${isim.toUpperCase().replace(/\s+/g, '_')}-${soyisim.toUpperCase().replace(/\s+/g, '_')}`
+    const filename  = `${timestamp}_${safeName}.docx`
 
     // Supabase Storage'a yükle — posterler bucket
     const buffer = Buffer.from(await dosya.arrayBuffer())
@@ -96,24 +82,17 @@ export async function POST(request: NextRequest) {
       baslik,
       dosya_yolu: filename,
     })
+    if (insertError) console.error('[poster] DB insert error:', insertError)
 
-    if (insertError) {
-      console.error('[poster] DB insert error:', insertError)
-    }
-
-    // Mail gönder — Gmail SMTP via Nodemailer → madok2026bildiri@gmail.com
+    // Mail gönder — Resend API → madok2026bildiri@gmail.com (poster başlığıyla)
     const mailPayload = { isim, soyisim, email, kurum, baslik, filename }
     try {
-      const transporter = bildiriTransporter()
-      const from = `"MADOK 2026 Poster Sistemi" <${process.env.SMTP_USER_BILDIRI}>`
-
-      // Dosyayı Storage'dan al, ek olarak gönder
       const { data: fileData } = await supabase.storage.from('posterler').download(filename)
       const fileBuffer = fileData ? Buffer.from(await fileData.arrayBuffer()) : null
 
-      await transporter.sendMail({
-        from,
-        to: process.env.MAIL_TO_BILDIRI,
+      await resend.emails.send({
+        from: MAIL_FROM,
+        to: [process.env.MAIL_TO_BILDIRI!],
         replyTo: email,
         subject: `MADOK 2026 — Poster Gönderimi: ${isim} ${soyisim}`,
         html: `
@@ -123,19 +102,17 @@ export async function POST(request: NextRequest) {
             </h2>
             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
               <tr><td style="padding: 8px; color: #55524d; font-weight: bold; width: 140px;">Ad:</td><td style="padding: 8px;">${isim}</td></tr>
-              <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Soyad:</td><td style="padding: 8px;">${soyisim}</td></tr>
+              <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Soyad:</td><td style="padding: 8px;">${soyisim}</td></tr>
               <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">E-posta:</td><td style="padding: 8px;">${email}</td></tr>
-              <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Kurum:</td><td style="padding: 8px;">${kurum || '—'}</td></tr>
+              <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Kurum:</td><td style="padding: 8px;">${kurum || '—'}</td></tr>
               <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Poster Başlığı:</td><td style="padding: 8px;">${baslik}</td></tr>
-              <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Gönderim Tarihi:</td><td style="padding: 8px;">${new Date().toLocaleString('tr-TR')}</td></tr>
+              <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Gönderim Tarihi:</td><td style="padding: 8px;">${new Date().toLocaleString('tr-TR')}</td></tr>
             </table>
             <p style="margin-top: 24px; color: #918c84; font-size: 13px;">Poster dosyası ekte bulunmaktadır.</p>
             <p style="color: #918c84; font-size: 13px;">Bu mail otomatik olarak MADOK 2026 poster sistemi tarafından gönderilmiştir.</p>
           </div>
         `,
-        attachments: fileBuffer
-          ? [{ filename, content: fileBuffer }]
-          : [],
+        attachments: fileBuffer ? [{ filename, content: fileBuffer }] : [],
       })
     } catch (mailErr) {
       console.error('[poster] Mail gönderilemedi, kuyruğa eklendi:', mailErr)

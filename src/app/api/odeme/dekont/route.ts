@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { resend, MAIL_FROM } from '@/lib/resend'
+import { resendOdeme as resend, MAIL_FROM_ODEME as MAIL_FROM } from '@/lib/resend'
 import { supabase } from '@/lib/supabase'
 
 // ── İzin verilen MIME tipleri (sunucu tarafı doğrulama) ──
 const ALLOWED_MIME_TYPES = ['application/pdf', 'image/jpeg', 'image/png']
 const ALLOWED_EXTENSIONS = ['pdf', 'jpg', 'jpeg', 'png']
+
+// ── Türkçe/özel karakterleri ASCII'ye çevir ──
+function toSafeFileName(str: string): string {
+  return str
+    .toUpperCase()
+    .replace(/Ğ/g, 'G').replace(/Ü/g, 'U').replace(/Ş/g, 'S')
+    .replace(/İ/g, 'I').replace(/Ö/g, 'O').replace(/Ç/g, 'C')
+    .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+    .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^A-Z0-9_\-]/g, '_')
+    .replace(/_+/g, '_')
+    .slice(0, 50)
+}
 
 async function mailKuyrugunaEkle(
   mailType: string,
@@ -76,7 +89,7 @@ export async function POST(request: NextRequest) {
 
     // Supabase Storage'a yükle
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)
-    const safeName = `${kayit.isim.toUpperCase().replace(/\s+/g, '_')}-${kayit.soyisim.toUpperCase().replace(/\s+/g, '_')}`
+    const safeName = `${toSafeFileName(kayit.isim)}-${toSafeFileName(kayit.soyisim)}`
     const filename = `${refKodu}_${timestamp}_${safeName}.${ext}`
     const buffer = Buffer.from(await dekont.arrayBuffer())
 
@@ -134,7 +147,7 @@ export async function POST(request: NextRequest) {
           </div>
         `,
         attachments: fileBuffer
-          ? [{ filename, content: fileBuffer }]
+          ? [{ filename, content: fileBuffer.toString('base64'), content_type: dekont.type }]
           : [],
       })
 

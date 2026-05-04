@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { resend, MAIL_FROM } from '@/lib/resend'
+import { resendOdeme as resend, MAIL_FROM_ODEME as MAIL_FROM } from '@/lib/resend'
 import { supabase } from '@/lib/supabase'
 
 function refKoduUret(): string {

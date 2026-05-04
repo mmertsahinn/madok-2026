@@ -4,34 +4,28 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useSearchParams } from "next/navigation";
 
-const PAKETLER = [
-  { value: "Öğrenci Paketi – 750 ₺ (Erken) / 1.000 ₺", label: "Öğrenci Paketi – 750 ₺ (Erken) / 1.000 ₺" },
-  { value: "Akademisyen Paketi – 1.500 ₺ (Erken) / 2.000 ₺", label: "Akademisyen Paketi – 1.500 ₺ (Erken) / 2.000 ₺" },
-  { value: "Profesyonel Paket – 2.500 ₺ (Erken) / 3.500 ₺", label: "Profesyonel Paket – 2.500 ₺ (Erken) / 3.500 ₺" },
+const KATEGORILER = [
+  { id: "maku_ogrenci", label: "MAKÜ Öğrenci (Kayıt: 850₺, Workshop: 1.500₺)", kongreFiyat: 850, workshopFiyat: 1500, isim: "MAKÜ Öğrenci" },
+  { id: "dis_ogrenci", label: "Öğrenci - MAKÜ Dışı (Kayıt: 1.350₺, Workshop: 1.500₺)", kongreFiyat: 1350, workshopFiyat: 1500, isim: "Öğrenci (MAKÜ Dışı)" },
+  { id: "hekim", label: "Diş Hekimi / Akademisyen (Kayıt: 2.000₺, Workshop: 3.000₺)", kongreFiyat: 2000, workshopFiyat: 3000, isim: "Diş Hekimi / Akademisyen" },
 ];
 
 const KABUL_MIME = ["application/pdf", "image/jpeg", "image/png"];
 const KABUL_EXT = [".pdf", ".jpg", ".jpeg", ".png"];
 
 function OdemeForm() {
-  const searchParams = useSearchParams();
-
-  const initialPaket = (() => {
-    const p = searchParams.get("paket");
-    if (p) {
-      const found = PAKETLER.find((x) => x.value.startsWith(p));
-      if (found) return found.value;
-    }
-    return PAKETLER[0].value;
-  })();
-
-  const [form, setForm] = useState({ isim: "", soyisim: "", email: "", paket: initialPaket });
+  const [form, setForm] = useState({ isim: "", soyisim: "", email: "", kategoriId: "maku_ogrenci", workshopAdet: "0" });
   const [dosya, setDosya] = useState<File | null>(null);
   const [dragging, setDragging] = useState(false);
   const [durum, setDurum] = useState<"idle" | "loading" | "success">("idle");
   const [hatalar, setHatalar] = useState<Record<string, string>>({});
   const [genelHata, setGenelHata] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Fiyat Hesaplama
+  const seciliKategori = KATEGORILER.find(k => k.id === form.kategoriId) || KATEGORILER[0];
+  const wAdet = parseInt(form.workshopAdet) || 0;
+  const toplamTutar = seciliKategori.kongreFiyat + (wAdet * seciliKategori.workshopFiyat);
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
@@ -79,7 +73,11 @@ function OdemeForm() {
     fd.append("isim", form.isim.trim());
     fd.append("soyisim", form.soyisim.trim());
     fd.append("email", form.email.trim());
-    fd.append("paket", form.paket);
+    
+    // API'ye gönderilecek paket bilgisini detaylandır
+    const paketDetay = `${seciliKategori.isim} + ${wAdet} Workshop | Toplam: ${toplamTutar} ₺`;
+    fd.append("paket", paketDetay);
+    
     fd.append("dekont", dosya!);
 
     try {
@@ -184,18 +182,50 @@ function OdemeForm() {
           {hatalar.email && <p style={errorText}>{hatalar.email}</p>}
         </div>
 
-        {/* Paket */}
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={labelStyle}>Kayıt Paketi <span style={required}>*</span></label>
+        {/* Kayıt Kategorisi */}
+        <div style={{ marginBottom: "1.2rem" }}>
+          <label style={labelStyle}>Kayıt Tipi <span style={required}>*</span></label>
           <select
-            name="paket" value={form.paket} onChange={handleChange}
+            name="kategoriId" value={form.kategoriId} onChange={handleChange}
             style={{ ...inputStyle, cursor: "pointer", appearance: "none" as const,
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23918c84' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
               backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center",
             }}
           >
-            {PAKETLER.map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
+            {KATEGORILER.map((k) => <option key={k.id} value={k.id}>{k.label}</option>)}
           </select>
+        </div>
+
+        {/* Workshop Seçimi */}
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label style={labelStyle}>Workshop Katılımı</label>
+          <select
+            name="workshopAdet" value={form.workshopAdet} onChange={handleChange}
+            style={{ ...inputStyle, cursor: "pointer", appearance: "none" as const,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23918c84' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+              backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center",
+            }}
+          >
+            <option value="0">İstemiyorum (0 ₺)</option>
+            <option value="1">1 Adet Workshop (+{seciliKategori.workshopFiyat} ₺)</option>
+            <option value="2">2 Adet Workshop (+{seciliKategori.workshopFiyat * 2} ₺)</option>
+            <option value="3">3 Adet Workshop (+{seciliKategori.workshopFiyat * 3} ₺)</option>
+          </select>
+        </div>
+
+        {/* Toplam Tutar Özeti */}
+        <div style={{
+          background: "var(--primary-800)", color: "white", padding: "1.2rem",
+          borderRadius: "10px", marginBottom: "1.5rem", display: "flex",
+          justifyContent: "space-between", alignItems: "center"
+        }}>
+          <div>
+            <div style={{ fontSize: "0.8rem", opacity: 0.8, marginBottom: "0.3rem" }}>Ödenecek Toplam Tutar</div>
+            <div style={{ fontSize: "0.85rem", opacity: 0.9 }}>{seciliKategori.isim} + {wAdet} Workshop</div>
+          </div>
+          <div style={{ fontSize: "1.8rem", fontWeight: 700 }}>
+            {toplamTutar.toLocaleString("tr-TR")} ₺
+          </div>
         </div>
 
         {/* Dosya Yükleme */}

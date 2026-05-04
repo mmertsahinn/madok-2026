@@ -117,156 +117,67 @@ export default function PaketlerPage() {
         </div>
       </section>
 
-      {/* Paketler */}
+      {/* Fiyat Tablosu */}
       <section className="section">
         <div className="section-container">
-          <div style={packagesGrid}>
-            {packages.map((pkg, i) => (
-              <ScrollReveal key={i}>
-                <div style={{
-                  ...pkgCard,
-                  border: pkg.featured ? "1px solid var(--primary-400)" : "1px solid var(--neutral-200)",
-                  boxShadow: pkg.featured ? "0 8px 40px rgba(163,125,102,0.18)" : "none",
-                }}>
-                  {/* Top */}
-                  <div style={{ ...pkgTop, background: pkg.featured ? "var(--neutral-950)" : "white" }}>
-                    {pkg.featured && (
-                      <div style={pkgBadge}>En Çok Tercih</div>
-                    )}
-                    <p style={{ ...pkgType, color: pkg.featured ? "var(--gold-400)" : "var(--primary-500)" }}>
-                      {pkg.type}
-                    </p>
-                    <h3 style={{ ...pkgName, color: pkg.featured ? "white" : "var(--text-primary)" }}>
-                      {pkg.name}
-                    </h3>
-                    <div style={pkgPriceRow}>
-                      <span style={{ ...pkgPrice, color: pkg.featured ? "white" : "var(--text-primary)" }}>
-                        {pkg.earlyPrice}
-                      </span>
-                      <span style={{ ...pkgPriceLabel, color: pkg.featured ? "rgba(255,255,255,0.45)" : "var(--text-muted)" }}>
-                        / kişi (erken)
-                      </span>
-                    </div>
-                    <p style={{ ...pkgNormal, color: pkg.featured ? "rgba(255,255,255,0.4)" : "var(--text-muted)" }}>
-                      Normal kayıt: {pkg.normalPrice} · {pkg.period}
-                    </p>
-                  </div>
-
-                  {/* Features */}
-                  <div style={pkgBody}>
-                    <ul style={pkgFeatures}>
-                      {pkg.features.map((f, j) => (
-                        <li key={j} style={pkgFeatItem}>
-                          <div style={{
-                            ...featCheck,
-                            background: f.included
-                              ? (pkg.featured ? "rgba(255,255,255,0.1)" : "var(--bg-tertiary,#f0ece7)")
-                              : "var(--neutral-100)",
-                          }}>
-                            {f.included ? <Check /> : <Cross />}
-                          </div>
-                          <span style={{
-                            ...featText,
-                            color: f.included
-                              ? (pkg.featured ? "rgba(255,255,255,0.85)" : "var(--text-secondary)")
-                              : "var(--neutral-400)",
-                            textDecoration: f.included ? "none" : "line-through",
-                          }}>
-                            {f.text}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* CTA */}
-                  <div style={{
-                    ...pkgFooter,
-                    borderTop: pkg.featured ? "1px solid rgba(255,255,255,0.1)" : "1px solid var(--neutral-200)",
-                    background: pkg.featured ? "var(--neutral-950)" : "white",
-                  }}>
-                    <Link
-                      href={`/odeme?paket=${encodeURIComponent(pkg.type)}`}
-                      style={{
-                        ...pkgBtn,
-                        background: pkg.featured ? "var(--gold-400)" : "var(--bg-secondary,#f8f6f3)",
-                        color: pkg.featured ? "var(--neutral-950)" : "var(--text-primary)",
-                        border: pkg.featured ? "none" : "1px solid var(--neutral-200)",
-                      }}
-                    >
-                      Kayıt Ol
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Add-ons */}
-      <section className="section section-alt">
-        <div className="section-container">
           <ScrollReveal>
-            <div className="section-header">
-              <p className="section-overline">Ek Hizmetler</p>
-              <h2 className="section-title">Ek Paket Seçenekleri</h2>
-              <p className="section-desc">
-                Kongre deneyiminizi zenginleştirmek için ek hizmetlerden yararlanabilirsiniz.
-              </p>
+            <div style={tableWrapper}>
+              <table style={pricingTable}>
+                <thead>
+                  <tr>
+                    <th style={thStyle}>Kategori</th>
+                    <th style={thStyle}>Kongre Kayıt (₺)</th>
+                    <th style={thStyle}>Workshop (Adet Başına ₺)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style={tdStyle}>MAKÜ Öğrenci</td>
+                    <td style={tdValueStyle}>850 ₺</td>
+                    <td style={tdValueStyle}>1.500 ₺</td>
+                  </tr>
+                  <tr>
+                    <td style={tdAltStyle}>Öğrenci (MAKÜ Dışı)</td>
+                    <td style={tdAltValueStyle}>1.350 ₺</td>
+                    <td style={tdAltValueStyle}>1.500 ₺</td>
+                  </tr>
+                  <tr>
+                    <td style={tdStyle}>Diş Hekimi / Akademisyen</td>
+                    <td style={tdValueStyle}>2.000 ₺</td>
+                    <td style={tdValueStyle}>3.000 ₺</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <div style={addonsGrid}>
-              {addons.map((addon, i) => (
-                <div key={i} style={addonCell}>
-                  <div style={addonInfo}>
-                    <h4 style={addonName}>{addon.name}</h4>
-                    <p style={addonDesc}>{addon.desc}</p>
-                  </div>
-                  <div style={addonPrice}>{addon.price}</div>
-                </div>
-              ))}
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <Link href="/odeme" className="btn-gold" style={{ padding: "1rem 2.5rem", fontSize: "1.1rem", borderRadius: "10px", display: "inline-block" }}>
+                Hemen Kayıt Ol
+              </Link>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
       {/* Ödeme Bilgileri */}
-      <section className="section">
+      <section className="section section-alt">
         <div className="section-container">
           <ScrollReveal>
             <div className="section-header">
               <p className="section-overline">Ödeme Bilgileri</p>
-              <h2 className="section-title">Ödeme Yöntemleri</h2>
+              <h2 className="section-title">Banka Hesap Bilgileri</h2>
             </div>
           </ScrollReveal>
 
           <ScrollReveal>
             <div style={paymentBox}>
               <div style={paymentBlock}>
-                <h3 style={paymentBlockTitle}>Kredi Kartı / Banka Kartı</h3>
-                <p style={paymentBlockDesc}>
-                  Online kayıt formunu doldurduktan sonra güvenli ödeme sayfasına yönlendirileceksiniz.
-                  Visa, MasterCard ve Troy kartları kabul edilmektedir.
-                </p>
-              </div>
-              <div style={paymentDivider} />
-              <div style={paymentBlock}>
                 <h3 style={paymentBlockTitle}>Havale / EFT</h3>
-                <p style={{ ...paymentBlockDesc, marginBottom: "1rem" }}>
-                  Banka havalesi ile ödeme yapmak isteyenler aşağıdaki bilgileri kullanabilir:
+                <p style={{ ...paymentBlockDesc, marginBottom: "1.5rem" }}>
+                  Banka havalesi ile ödeme yapmak isteyen katılımcılarımız aşağıdaki hesap bilgilerini kullanabilir. Ödeme yaparken açıklama kısmına <strong>Ad Soyad ve MADOK2026</strong> yazılması zorunludur.
                 </p>
                 <div style={ibanBox}>
-                  <div style={ibanRow}><span style={ibanKey}>Banka</span><span style={ibanVal}>[Banka Adı]</span></div>
-                  <div style={ibanRow}><span style={ibanKey}>Şube</span><span style={ibanVal}>[Şube Adı / Kodu]</span></div>
-                  <div style={ibanRow}><span style={ibanKey}>Hesap Sahibi</span><span style={ibanVal}>MADOK 2026 Organizasyon</span></div>
-                  <div style={ibanRow}><span style={ibanKey}>IBAN</span><span style={ibanVal}>TR00 0000 0000 0000 0000 0000 00</span></div>
-                  <div style={{ ...ibanRow, borderBottom: "none" }}><span style={ibanKey}>Açıklama</span><span style={{ ...ibanVal, color: "var(--primary-700)", fontWeight: 700 }}>Ad Soyad – MADOK2026</span></div>
+                  <div style={ibanRow}><span style={ibanKey}>Alıcı (Hesap Sahibi)</span><span style={ibanVal}>M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK.</span></div>
+                  <div style={{ ...ibanRow, borderBottom: "none" }}><span style={ibanKey}>IBAN</span><span style={ibanVal}>TR 6200 0100 1582 5447 2844 5280</span></div>
                 </div>
               </div>
             </div>
@@ -275,7 +186,7 @@ export default function PaketlerPage() {
       </section>
 
       {/* SSS */}
-      <section className="section section-alt">
+      <section className="section">
         <div className="section-container">
           <ScrollReveal>
             <div className="section-header">
@@ -294,27 +205,6 @@ export default function PaketlerPage() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-section">
-        <div className="section-container">
-          <ScrollReveal>
-            <div className="cta-content">
-              <h2>Yerinizi Ayırtın</h2>
-              <p>Kontenjan sınırlıdır. Erken kayıt avantajlarından yararlanmak için hemen başvurun.</p>
-              <div className="cta-buttons">
-                <Link href="/odeme" className="btn-gold">
-                  Online Kayıt Formu
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </Link>
-                <Link href="/" className="btn-outline-white">← Ana Sayfaya Dön</Link>
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
@@ -429,4 +319,35 @@ const faqQ: React.CSSProperties = {
 };
 const faqA: React.CSSProperties = {
   fontFamily: "var(--font-ui)", fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.65,
+};
+
+const tableWrapper: React.CSSProperties = {
+  width: "100%", overflowX: "auto", margin: "0 auto", maxWidth: "900px",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.05)", borderRadius: "12px", background: "white",
+};
+
+const pricingTable: React.CSSProperties = {
+  width: "100%", borderCollapse: "collapse", fontFamily: "var(--font-body)",
+};
+
+const thStyle: React.CSSProperties = {
+  background: "var(--primary-800)", color: "white", padding: "1.2rem 1rem",
+  textAlign: "left", fontSize: "1.05rem", fontWeight: 600, borderBottom: "2px solid var(--primary-900)",
+};
+
+const tdStyle: React.CSSProperties = {
+  padding: "1.2rem 1rem", borderBottom: "1px solid var(--neutral-200)",
+  fontSize: "1rem", color: "var(--text-primary)", fontWeight: 500,
+};
+
+const tdValueStyle: React.CSSProperties = {
+  ...tdStyle, fontWeight: 700, color: "var(--primary-600)",
+};
+
+const tdAltStyle: React.CSSProperties = {
+  ...tdStyle, background: "var(--bg-secondary)",
+};
+
+const tdAltValueStyle: React.CSSProperties = {
+  ...tdValueStyle, background: "var(--bg-secondary)",
 };

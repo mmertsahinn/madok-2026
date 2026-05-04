@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 import { supabase } from '@/lib/supabase'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
-const MAIL_FROM = 'MADOK 2026 <onboarding@resend.dev>'
 
 // ── Sunucu tarafı MIME-type doğrulama — SADECE .docx ──
 const ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]
+
+function bildiriTransporter() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER_BILDIRI,
+      pass: process.env.SMTP_PASS_BILDIRI,
+    },
+  })
+}
 
 async function mailKuyrugunaEkle(
   mailType: string,
@@ -84,15 +93,18 @@ export async function POST(request: NextRequest) {
     })
     if (insertError) console.error('[poster] DB insert error:', insertError)
 
-    // Mail gönder — Resend API → madok2026bildiri@gmail.com (poster başlığıyla)
+    // Mail gönder — Gmail SMTP via Nodemailer → madok2026bildiri@gmail.com
     const mailPayload = { isim, soyisim, email, kurum, baslik, filename }
     try {
+      const transporter = bildiriTransporter()
+      const from = `"MADOK 2026 Poster Sistemi" <${process.env.SMTP_USER_BILDIRI}>`
+
       const { data: fileData } = await supabase.storage.from('posterler').download(filename)
       const fileBuffer = fileData ? Buffer.from(await fileData.arrayBuffer()) : null
 
-      await resend.emails.send({
-        from: MAIL_FROM,
-        to: [process.env.MAIL_TO_BILDIRI!],
+      await transporter.sendMail({
+        from,
+        to: process.env.MAIL_TO_BILDIRI,
         replyTo: email,
         subject: `MADOK 2026 — Poster Gönderimi: ${isim} ${soyisim}`,
         html: `

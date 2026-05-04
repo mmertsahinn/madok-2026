@@ -65,7 +65,7 @@ export default function HeroSection() {
            <div className="nh-main-card">
               <div className="nh-mc-top">
                  <h1 className="nh-mc-title">MADOK 2026</h1>
-                 <p className="nh-mc-subtitle">Burdur Mehmet Akif Ersoy Üniversitesi<br/>Uluslararası Diş Hekimliği Kongresi</p>
+                 <p className="nh-mc-subtitle">Burdur Mehmet Akif Ersoy Üniversitesi<br/>Ulusal Diş Hekimliği Kongresi</p>
               </div>
               <div className="nh-mc-bottom">
                  <h2 className="nh-mc-date">19-21 Haziran</h2>

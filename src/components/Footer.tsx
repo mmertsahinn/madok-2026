@@ -9,8 +9,8 @@ export default function Footer() {
             <h3>MADOK</h3>
             <p>
               MADOK 2026, alanındaki güncel bilimsel gelişmeleri, klinik uygulamaları
-              ve araştırma çıktılarını ulusal ve uluslararası paydaşlarla buluşturan
-              uluslararası akademik kongredir.
+              ve araştırma çıktılarını ulusal paydaşlarla buluşturan
+              ulusal akademik kongredir.
             </p>
           </div>
 

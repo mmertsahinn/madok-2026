@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MADOK 2026 | Uluslararası Kongre",
-  description: "MADOK 2026 Uluslararası Kongresi'ne hoş geldiniz. Kayıt, program ve detaylı bilgi için sitemizi ziyaret edin.",
-  keywords: "MADOK, kongre, 2026, uluslararası, bilimsel, konferans",
+  title: "MADOK 2026 | Ulusal Kongre",
+  description: "MADOK 2026 Ulusal Kongresi'ne hoş geldiniz. Kayıt, program ve detaylı bilgi için sitemizi ziyaret edin.",
+  keywords: "MADOK, kongre, 2026, ulusal, bilimsel, konferans",
 };
 
 export default function RootLayout({

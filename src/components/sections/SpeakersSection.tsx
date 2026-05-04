@@ -25,7 +25,7 @@ export default function SpeakersSection() {
             <p className="section-overline">Konuşmacılar</p>
             <h2 className="section-title">Alanında Uzman İsimler</h2>
             <p className="section-desc">
-              Ulusal ve uluslararası alanda öncü araştırmacılar ve klinisyenler MADOK 2026&apos;da.
+              Ulusal alanda öncü araştırmacılar ve klinisyenler MADOK 2026&apos;da.
             </p>
           </div>
         </ScrollReveal>

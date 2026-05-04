@@ -4,22 +4,22 @@ import Link from "next/link";
 
 const announcements = [
   {
-    date: "10 Mart 2026",
-    title: "Erken Kayıt Fırsatları",
-    desc: "Öğrenci ve akademisyenler için avantajlı erken kayıt dönemi başlamıştır.",
+    date: "4 Mayıs 2026",
+    title: "Kayıtlar Başladı",
+    desc: "Kongremiz için kayıt dönemi başlamıştır. Sitemiz üzerinden kayıt olabilirsiniz.",
     isNew: true,
   },
   {
-    date: "5 Mart 2026",
-    title: "Bildiri Gönderim Sistemi",
-    desc: "Sözlü ve poster bildiri kabul sistemi online olarak erişime açıldı.",
+    date: "4 Mayıs 2026",
+    title: "Bildiri ve Poster Başvuruları",
+    desc: "Sözlü bildiri ve poster başvuruları online olarak alınmaya başlanmıştır.",
     isNew: true,
   },
   {
-    date: "1 Mart 2026",
-    title: "Gala Yemeği Mekanı",
-    desc: "Kongremizin ilk günü akşamı düzenlenecek gala yemeği için Lavanta Tepesi Otel ayarlanmıştır.",
-    isNew: false,
+    date: "4 Mayıs 2026",
+    title: "Ödeme Bilgileri",
+    desc: "Alıcı: M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK. | IBAN: TR 6200 0100 1582 5447 2844 5280",
+    isNew: true,
   },
 ];
 

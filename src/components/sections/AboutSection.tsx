@@ -51,7 +51,7 @@ export default function AboutSection() {
                </li>
                <li style={{ display: "flex", alignItems: "center", gap: "1rem", fontSize: "1.1rem" }}>
                  <Building className="text-primary" style={{ color: "#cba867" }} />
-                 <strong>Tür:</strong> Uluslararası Bilimsel Kongre
+                 <strong>Tür:</strong> Ulusal Bilimsel Kongre
                </li>
                <li style={{ display: "flex", alignItems: "center", gap: "1rem", fontSize: "1.1rem" }}>
                  <Globe className="text-primary" style={{ color: "#cba867" }} />

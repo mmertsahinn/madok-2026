@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { resend, MAIL_FROM } from '@/lib/resend'
+import nodemailer from 'nodemailer'
 import { supabase } from '@/lib/supabase'
 
 // ── Sunucu tarafı MIME-type doğrulama — SADECE .docx ──
@@ -7,6 +7,18 @@ const ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]
 // application/msword ve application/octet-stream güvenilmez — reddedilir
+
+function bildiriTransporter() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER_BILDIRI,
+      pass: process.env.SMTP_PASS_BILDIRI,
+    },
+  })
+}
 
 async function mailKuyrugunaEkle(
   mailType: string,
@@ -61,7 +73,7 @@ export async function POST(request: NextRequest) {
     const safeName = `${isim.toUpperCase().replace(/\s+/g, '_')}-${soyisim.toUpperCase().replace(/\s+/g, '_')}`
     const filename = `${timestamp}_${safeName}.docx`
 
-    // Supabase Storage'a yükle
+    // Supabase Storage'a yükle — bildirilier bucket
     const buffer = Buffer.from(await dosya.arrayBuffer())
     const { error: uploadError } = await supabase.storage
       .from('bildirilier')
@@ -89,15 +101,19 @@ export async function POST(request: NextRequest) {
       console.error('[bildiri] DB insert error:', insertError)
     }
 
-    // Mail gönder via Resend (başarısız olursa kuyruğa)
+    // Mail gönder — Gmail SMTP via Nodemailer → madok2026bildiri@gmail.com
     const mailPayload = { isim, soyisim, email, kurum, baslik, filename }
     try {
+      const transporter = bildiriTransporter()
+      const from = `"MADOK 2026 Bildiri Sistemi" <${process.env.SMTP_USER_BILDIRI}>`
+
+      // Dosyayı Storage'dan al, ek olarak gönder
       const { data: fileData } = await supabase.storage.from('bildirilier').download(filename)
       const fileBuffer = fileData ? Buffer.from(await fileData.arrayBuffer()) : null
 
-      await resend.emails.send({
-        from: MAIL_FROM,
-        to: [process.env.MAIL_TO_BILDIRI!],
+      await transporter.sendMail({
+        from,
+        to: process.env.MAIL_TO_BILDIRI,
         replyTo: email,
         subject: `MADOK 2026 — Bildiri Gönderimi: ${isim} ${soyisim}`,
         html: `
@@ -114,6 +130,7 @@ export async function POST(request: NextRequest) {
               <tr style="background: #f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Gönderim Tarihi:</td><td style="padding: 8px;">${new Date().toLocaleString('tr-TR')}</td></tr>
             </table>
             <p style="margin-top: 24px; color: #918c84; font-size: 13px;">Bildiri dosyası ekte bulunmaktadır.</p>
+            <p style="color: #918c84; font-size: 13px;">Bu mail otomatik olarak MADOK 2026 bildiri sistemi tarafından gönderilmiştir.</p>
           </div>
         `,
         attachments: fileBuffer

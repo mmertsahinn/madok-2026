@@ -2013,8 +2013,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+  .new-hero-content {
+    margin: -4rem 0 0; /* Brought down significantly from -16rem */
+    padding: 0 1rem;
+    align-items: center;
+  }
+  .nh-countdown {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    align-self: center;
+  }
   .nh-card-wrapper {
     flex-direction: column;
+    width: 100%;
   }
   .nh-side-tab {
     margin-top: 0;
@@ -2023,9 +2034,12 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 3;
     width: 100%;
     text-align: center;
+    border-radius: 0 0 8px 8px; /* Bottom corners rounded instead of right */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: none;
   }
-  .nh-mc-title { font-size: 2.8rem; }
-  .nh-mc-date { font-size: 2.5rem; }
-  .nh-val { font-size: 2rem; }
-  .nh-mc-top, .nh-mc-bottom { padding: 2rem; }
+  .nh-mc-title { font-size: 2.2rem; }
+  .nh-mc-date { font-size: 2rem; }
+  .nh-val { font-size: 1.6rem; }
+  .nh-mc-top, .nh-mc-bottom { padding: 1.5rem; }
 }

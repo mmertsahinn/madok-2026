@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 const siteUrl = "https://madok26.com";
@@ -79,6 +80,20 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <head>
+        {/* Google Ads – gtag.js */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18144236556"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18144236556');
+          `}
+        </Script>
         {/* Schema.org – Event structured data */}
         <script
           type="application/ld+json"

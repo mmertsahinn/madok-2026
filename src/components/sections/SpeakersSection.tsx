@@ -29,7 +29,7 @@ const speakers = [
   {
     name: "Dt. Onur YEDİKARA",
     unvan: "Dt.",
-    alan: "Pratisyen",
+    alan: "Genel Diş Hekimi",
     img: "/hocalar/dt.onur yedikara.jpeg",
   },
   {

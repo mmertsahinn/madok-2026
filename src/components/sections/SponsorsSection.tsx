@@ -14,34 +14,38 @@ export default function SponsorsSection() {
           </div>
         </ScrollReveal>
 
+        {/* GOLD */}
         <ScrollReveal>
-          <div className="sponsors-tier">
-            <p className="sponsors-tier-label">Ana Sponsor</p>
+          <div className="sponsors-tier sponsor-tier-gold" style={{ marginBottom: "2.5rem" }}>
+            <p className="sponsors-tier-label">Gold Sponsor</p>
             <div className="sponsors-logos">
-              <div className="sponsor-logo main">Ana Sponsor</div>
+              <div className="sponsor-logo-box">Gold Sponsor</div>
+              <div className="sponsor-logo-box">Gold Sponsor</div>
             </div>
           </div>
         </ScrollReveal>
 
+        {/* SILVER */}
         <ScrollReveal>
-          <div className="sponsors-tier">
-            <p className="sponsors-tier-label">Gold Sponsorlar</p>
+          <div className="sponsors-tier sponsor-tier-silver" style={{ marginBottom: "2.5rem" }}>
+            <p className="sponsors-tier-label">Silver Sponsor</p>
             <div className="sponsors-logos">
-              <div className="sponsor-logo">Gold Sponsor 1</div>
-              <div className="sponsor-logo">Gold Sponsor 2</div>
-              <div className="sponsor-logo">Gold Sponsor 3</div>
+              <div className="sponsor-logo-box">Silver Sponsor</div>
+              <div className="sponsor-logo-box">Silver Sponsor</div>
+              <div className="sponsor-logo-box">Silver Sponsor</div>
             </div>
           </div>
         </ScrollReveal>
 
+        {/* BRONZE */}
         <ScrollReveal>
-          <div className="sponsors-tier">
-            <p className="sponsors-tier-label">Stand Sponsorları</p>
+          <div className="sponsors-tier sponsor-tier-bronze">
+            <p className="sponsors-tier-label">Bronze Sponsor</p>
             <div className="sponsors-logos">
-              <div className="sponsor-logo">Stand 1</div>
-              <div className="sponsor-logo">Stand 2</div>
-              <div className="sponsor-logo">Stand 3</div>
-              <div className="sponsor-logo">Stand 4</div>
+              <div className="sponsor-logo-box">Bronze Sponsor</div>
+              <div className="sponsor-logo-box">Bronze Sponsor</div>
+              <div className="sponsor-logo-box">Bronze Sponsor</div>
+              <div className="sponsor-logo-box">Bronze Sponsor</div>
             </div>
           </div>
         </ScrollReveal>

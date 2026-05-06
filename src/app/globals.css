@@ -2043,3 +2043,148 @@ h1, h2, h3, h4, h5, h6 {
   .nh-val { font-size: 1.6rem; }
   .nh-mc-top, .nh-mc-bottom { padding: 1.5rem; }
 }
+
+/* ===== BİLİMSEL DUYURU BANNER ===== */
+.bilimsel-duyuru-banner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, rgba(163,125,102,0.08) 0%, rgba(82,125,110,0.06) 100%);
+  border: 1px solid var(--primary-200);
+  border-left: 4px solid var(--primary-500);
+  border-radius: 16px;
+  padding: 1.8rem 2rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bilimsel-duyuru-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(163,125,102,0.04) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.bilimsel-duyuru-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.bilimsel-duyuru-text {
+  flex: 1;
+}
+
+.bilimsel-duyuru-text h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.bilimsel-duyuru-text p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.bilimsel-duyuru-badge {
+  flex-shrink: 0;
+  padding: 0.4rem 1.2rem;
+  background: var(--primary-500);
+  color: white;
+  border-radius: 50px;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  animation: pulse-badge 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(163,125,102,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(163,125,102,0); }
+}
+
+@media (max-width: 640px) {
+  .bilimsel-duyuru-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ===== GOLD / SILVER / BRONZE SPONSORS ===== */
+.sponsor-tier-gold .sponsor-logo-box {
+  border: 2px solid #f1c258;
+  box-shadow: 0 0 18px 4px rgba(241,194,88,0.35), 0 0 40px 8px rgba(241,194,88,0.12);
+  background: linear-gradient(135deg, #fefcf3 0%, #fdf6db 100%);
+}
+.sponsor-tier-gold .sponsor-logo-box:hover {
+  box-shadow: 0 0 28px 8px rgba(241,194,88,0.55), 0 0 60px 16px rgba(241,194,88,0.2);
+  transform: translateY(-4px) scale(1.03);
+}
+.sponsor-tier-gold .sponsors-tier-label {
+  color: #b26c1f;
+}
+.sponsor-tier-gold .sponsors-tier-label::before {
+  content: '★ ';
+}
+
+.sponsor-tier-silver .sponsor-logo-box {
+  border: 2px solid #b0aca5;
+  box-shadow: 0 0 18px 4px rgba(176,172,165,0.35), 0 0 40px 8px rgba(176,172,165,0.12);
+  background: linear-gradient(135deg, #fafaf9 0%, #f0ece7 100%);
+}
+.sponsor-tier-silver .sponsor-logo-box:hover {
+  box-shadow: 0 0 28px 8px rgba(176,172,165,0.55), 0 0 60px 16px rgba(176,172,165,0.2);
+  transform: translateY(-4px) scale(1.03);
+}
+.sponsor-tier-silver .sponsors-tier-label {
+  color: #65615b;
+}
+.sponsor-tier-silver .sponsors-tier-label::before {
+  content: '✦ ';
+}
+
+.sponsor-tier-bronze .sponsor-logo-box {
+  border: 2px solid #a37d66;
+  box-shadow: 0 0 18px 4px rgba(163,125,102,0.35), 0 0 40px 8px rgba(163,125,102,0.12);
+  background: linear-gradient(135deg, #faf7f5 0%, #f0e9e3 100%);
+}
+.sponsor-tier-bronze .sponsor-logo-box:hover {
+  box-shadow: 0 0 28px 8px rgba(163,125,102,0.5), 0 0 60px 16px rgba(163,125,102,0.18);
+  transform: translateY(-4px) scale(1.03);
+}
+.sponsor-tier-bronze .sponsors-tier-label {
+  color: #7a584a;
+}
+.sponsor-tier-bronze .sponsors-tier-label::before {
+  content: '◆ ';
+}
+
+.sponsor-logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  min-height: 80px;
+  padding: 1.2rem 2rem;
+  border-radius: 14px;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: default;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sponsors-tier-label {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+

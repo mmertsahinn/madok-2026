@@ -7,7 +7,7 @@ export default function VenueSection() {
       <div className="section-container">
         <ScrollReveal>
           <div className="section-header">
-            <p className="section-overline">Konaklama & Ulaşım</p>
+            <p className="section-overline">Kongre Mekanı</p>
             <h2 className="section-title">Kongre Merkezi</h2>
           </div>
         </ScrollReveal>
@@ -24,22 +24,22 @@ export default function VenueSection() {
               ></iframe>
             </div>
             <div className="venue-details">
-              <h3>MAKÜ Konferans ve Sergi Salonu</h3>
-              <p className="venue-subtitle">Burdur, Türkiye</p>
+              <h3>Sergi Salonu</h3>
+              <p className="venue-subtitle">Burdur Diş Hekimliği Fakültesi Yanı, Burdur</p>
 
               <div className="venue-info-list" style={{ color: "var(--primary-600)"}}>
                 <div className="venue-info-item">
                   <div className="venue-info-icon"><MapPin size={20} /></div>
                   <div className="venue-info-text">
                     <h4>Adres</h4>
-                    <p>MAKÜ Konferans ve Sergi Salonu, Merkez Kampüs, Burdur</p>
+                    <p>Burdur Mehmet Akif Ersoy Üniversitesi Diş Hekimliği Fakültesi Yanı, Sergi Salonu, Burdur</p>
                   </div>
                 </div>
                 <div className="venue-info-item">
                   <div className="venue-info-icon"><Car size={20} /></div>
                   <div className="venue-info-text">
                     <h4>Ulaşım</h4>
-                    <p>Havalimanından 30 dk, merkeze 15 dk mesafe</p>
+                    <p>Şehir merkezine 10 dk mesafe, ücretsiz otopark mevcuttur</p>
                   </div>
                 </div>
                 <div className="venue-info-item">
@@ -53,7 +53,7 @@ export default function VenueSection() {
                   <div className="venue-info-icon"><Phone size={20} /></div>
                   <div className="venue-info-text">
                     <h4>İletişim</h4>
-                    <p>info@madok2026.com · +90 (XXX) XXX XX XX</p>
+                    <p>madok.2026.burdur@gmail.com</p>
                   </div>
                 </div>
               </div>

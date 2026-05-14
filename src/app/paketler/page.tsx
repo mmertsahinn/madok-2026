@@ -117,6 +117,33 @@ export default function PaketlerPage() {
         </div>
       </section>
 
+      {/* Ödeme Bilgileri */}
+      <section className="section section-alt">
+        <div className="section-container">
+          <ScrollReveal>
+            <div className="section-header">
+              <p className="section-overline">Ödeme Bilgileri</p>
+              <h2 className="section-title">Banka Hesap Bilgileri</h2>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div style={paymentBox}>
+              <div style={paymentBlock}>
+                <h3 style={paymentBlockTitle}>Havale / EFT</h3>
+                <p style={{ ...paymentBlockDesc, marginBottom: "1.5rem" }}>
+                  Banka havalesi ile ödeme yapmak isteyen katılımcılarımız aşağıdaki hesap bilgilerini kullanabilir. Ödeme yaparken açıklama kısmına <strong>Ad Soyad ve MADOK2026</strong> yazılması zorunludur.
+                </p>
+                <div style={ibanBox}>
+                  <div style={ibanRow}><span style={ibanKey}>Alıcı (Hesap Sahibi)</span><span style={ibanVal}>M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK.</span></div>
+                  <div style={{ ...ibanRow, borderBottom: "none" }}><span style={ibanKey}>IBAN</span><span style={ibanVal}>TR62 0001 0015 8254 4728 4452 80</span></div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* Fiyat Tablosu */}
       <section className="section">
         <div className="section-container">
@@ -153,33 +180,6 @@ export default function PaketlerPage() {
               <Link href="/odeme" className="btn-gold" style={{ padding: "1rem 2.5rem", fontSize: "1.1rem", borderRadius: "10px", display: "inline-block" }}>
                 Hemen Kayıt Ol
               </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Ödeme Bilgileri */}
-      <section className="section section-alt">
-        <div className="section-container">
-          <ScrollReveal>
-            <div className="section-header">
-              <p className="section-overline">Ödeme Bilgileri</p>
-              <h2 className="section-title">Banka Hesap Bilgileri</h2>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <div style={paymentBox}>
-              <div style={paymentBlock}>
-                <h3 style={paymentBlockTitle}>Havale / EFT</h3>
-                <p style={{ ...paymentBlockDesc, marginBottom: "1.5rem" }}>
-                  Banka havalesi ile ödeme yapmak isteyen katılımcılarımız aşağıdaki hesap bilgilerini kullanabilir. Ödeme yaparken açıklama kısmına <strong>Ad Soyad ve MADOK2026</strong> yazılması zorunludur.
-                </p>
-                <div style={ibanBox}>
-                  <div style={ibanRow}><span style={ibanKey}>Alıcı (Hesap Sahibi)</span><span style={ibanVal}>M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK.</span></div>
-                  <div style={{ ...ibanRow, borderBottom: "none" }}><span style={ibanKey}>IBAN</span><span style={ibanVal}>TR 6200 0100 1582 5447 2844 5280</span></div>
-                </div>
-              </div>
             </div>
           </ScrollReveal>
         </div>

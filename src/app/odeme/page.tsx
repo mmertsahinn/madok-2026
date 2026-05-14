@@ -436,7 +436,47 @@ export default function OdemePage() {
         @keyframes madok-bar { 0% { width: 0%; } 60% { width: 75%; } 100% { width: 100%; } }
       `}</style>
 
-      <section className="section">
+      {/* Banka Bilgileri */}
+      <section className="section" style={{ paddingBottom: 0 }}>
+        <div className="section-container">
+          <div style={{
+            maxWidth: "580px", margin: "0 auto",
+            background: "white", borderRadius: "16px",
+            border: "1px solid var(--neutral-200)", padding: "2rem 2rem 1.8rem",
+            marginBottom: "2rem",
+          }}>
+            <div style={{
+              fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700,
+              textTransform: "uppercase" as const, letterSpacing: "1.5px",
+              color: "var(--text-muted)", marginBottom: "0.75rem",
+            }}>
+              Havale / EFT Bilgileri
+            </div>
+            <p style={{
+              fontFamily: "var(--font-ui)", fontSize: "0.84rem", color: "var(--text-muted)",
+              lineHeight: 1.75, marginBottom: "1.2rem",
+            }}>
+              Ödeme yaparken açıklama kısmına <strong style={{ color: "var(--text-primary)" }}>Ad Soyad ve MADOK2026</strong> yazılması zorunludur.
+            </p>
+            <div style={{ background: "var(--bg-secondary)", borderRadius: "10px", padding: "0.4rem 1.2rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0", borderBottom: "1px solid var(--neutral-200)" }}>
+                <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--text-muted)" }}>Alıcı</span>
+                <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.82rem", fontWeight: 600, color: "var(--text-primary)", textAlign: "right", maxWidth: "60%" }}>
+                  M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK.
+                </span>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0" }}>
+                <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--text-muted)" }}>IBAN</span>
+                <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.88rem", fontWeight: 700, color: "var(--primary-700)", letterSpacing: "0.5px" }}>
+                  TR62 0001 0015 8254 4728 4452 80
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: "1rem" }}>
         <div className="section-container">
           <Suspense fallback={<div style={{ textAlign: "center", padding: "4rem", fontFamily: "var(--font-ui)", color: "var(--text-muted)" }}>Yükleniyor…</div>}>
             <OdemeForm />

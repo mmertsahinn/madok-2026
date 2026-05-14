@@ -81,8 +81,7 @@ function OdemeForm() {
     fd.append("soyisim", form.soyisim.trim());
     fd.append("email", form.email.trim());
     
-    // API'ye gönderilecek paket bilgisini detaylandır
-    const paketDetay = `${seciliKategori.isim} + ${wAdet} Workshop | Toplam: ${toplamTutar} ₺`;
+    const paketDetay = `${seciliKategori.isim} | Toplam: ${seciliKategori.kongreFiyat} ₺`;
     fd.append("paket", paketDetay);
     
     fd.append("dekont", dosya!);
@@ -203,21 +202,21 @@ function OdemeForm() {
           </select>
         </div>
 
-        {/* Workshop Seçimi */}
+        {/* Workshop — Yakında */}
         <div style={{ marginBottom: "1.5rem" }}>
           <label style={labelStyle}>Workshop Katılımı</label>
-          <select
-            name="workshopAdet" value={form.workshopAdet} onChange={handleChange}
-            style={{ ...inputStyle, cursor: "pointer", appearance: "none" as const,
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23918c84' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
-              backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center",
-            }}
-          >
-            <option value="0">İstemiyorum (0 ₺)</option>
-            <option value="1">1 Adet Workshop (+{seciliKategori.workshopFiyat} ₺)</option>
-            <option value="2">2 Adet Workshop (+{seciliKategori.workshopFiyat * 2} ₺)</option>
-            <option value="3">3 Adet Workshop (+{seciliKategori.workshopFiyat * 3} ₺)</option>
-          </select>
+          <div style={{
+            padding: "0.9rem 1rem", border: "1px dashed var(--neutral-300)",
+            borderRadius: "10px", background: "var(--bg-secondary)",
+            fontFamily: "var(--font-ui)", fontSize: "0.88rem",
+            color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "0.5rem",
+          }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+              <circle cx="8" cy="8" r="7" stroke="var(--neutral-400)" strokeWidth="1.4"/>
+              <path d="M8 4.5v4l2.5 1.5" stroke="var(--neutral-400)" strokeWidth="1.4" strokeLinecap="round"/>
+            </svg>
+            Workshop kaydı yakında açılacak
+          </div>
         </div>
 
         {/* Toplam Tutar Özeti */}
@@ -228,10 +227,10 @@ function OdemeForm() {
         }}>
           <div>
             <div style={{ fontSize: "0.8rem", opacity: 0.8, marginBottom: "0.3rem" }}>Ödenecek Toplam Tutar</div>
-            <div style={{ fontSize: "0.85rem", opacity: 0.9 }}>{seciliKategori.isim} + {wAdet} Workshop</div>
+            <div style={{ fontSize: "0.85rem", opacity: 0.9 }}>{seciliKategori.isim}</div>
           </div>
           <div style={{ fontSize: "1.8rem", fontWeight: 700 }}>
-            {toplamTutar.toLocaleString("tr-TR")} ₺
+            {seciliKategori.kongreFiyat.toLocaleString("tr-TR")} ₺
           </div>
         </div>
 

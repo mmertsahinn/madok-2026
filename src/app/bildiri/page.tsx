@@ -411,6 +411,13 @@ function BildiriForm() {
             <li>Her katılımcı en fazla <strong>2 bildiri</strong> gönderebilir.</li>
             <li>Bildiri kabul sonrası kongre kaydını tamamlamak zorunludur.</li>
           </ul>
+          <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.82rem", color: "#77461e", marginTop: "0.9rem", marginBottom: 0, lineHeight: 1.7 }}>
+            2&apos;den fazla bildiri göndermek isteyenler{" "}
+            <a href="mailto:madok2026bildiri@gmail.com" style={{ color: "#b26c1f", fontWeight: 700, textDecoration: "underline" }}>
+              madok2026bildiri@gmail.com
+            </a>{" "}
+            adresine iletebilir.
+          </p>
         </div>
 
         {/* Şablon */}

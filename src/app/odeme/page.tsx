@@ -202,22 +202,6 @@ function OdemeForm() {
           </select>
         </div>
 
-        {/* Workshop — Yakında */}
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={labelStyle}>Workshop Katılımı</label>
-          <div style={{
-            padding: "0.9rem 1rem", border: "1px dashed var(--neutral-300)",
-            borderRadius: "10px", background: "var(--bg-secondary)",
-            fontFamily: "var(--font-ui)", fontSize: "0.88rem",
-            color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "0.5rem",
-          }}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
-              <circle cx="8" cy="8" r="7" stroke="var(--neutral-400)" strokeWidth="1.4"/>
-              <path d="M8 4.5v4l2.5 1.5" stroke="var(--neutral-400)" strokeWidth="1.4" strokeLinecap="round"/>
-            </svg>
-            Workshop kaydı yakında açılacak
-          </div>
-        </div>
 
         {/* Toplam Tutar Özeti */}
         <div style={{

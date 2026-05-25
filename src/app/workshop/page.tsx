@@ -16,7 +16,12 @@ interface Workshop {
 
 const KABUL_MIME = ["application/pdf", "image/jpeg", "image/png"];
 const KABUL_EXT = ["pdf", "jpg", "jpeg", "png"];
-const POLLING_MS = 15_000; // 15 saniyede bir kontenjan güncelle
+const POLLING_MS = 15_000;
+
+const KATEGORILER = [
+  { id: "ogrenci", label: "Öğrenci", fiyat: 1500 },
+  { id: "hekim",   label: "Diş Hekimi / Akademisyen", fiyat: 3000 },
+];
 
 export default function WorkshopPage() {
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
@@ -24,7 +29,7 @@ export default function WorkshopPage() {
   const [fetchHata, setFetchHata] = useState("");
 
   const [secili, setSecili] = useState<Set<string>>(new Set());
-  const [form, setForm] = useState({ isim: "", soyisim: "", email: "", telefon: "" });
+  const [form, setForm] = useState({ isim: "", soyisim: "", email: "", telefon: "", kategoriId: "ogrenci" });
   const [dosya, setDosya] = useState<File | null>(null);
   const [dragging, setDragging] = useState(false);
   const [hatalar, setHatalar] = useState<Record<string, string>>({});
@@ -69,7 +74,8 @@ export default function WorkshopPage() {
   }
 
   const seciliWorkshoplar = workshops.filter((w) => secili.has(w.id));
-  const toplamFiyat = seciliWorkshoplar.reduce((s, w) => s + w.fiyat, 0);
+  const seciliKategori = KATEGORILER.find((k) => k.id === form.kategoriId) ?? KATEGORILER[0];
+  const toplamFiyat = secili.size * seciliKategori.fiyat;
 
   // ── Dosya seçimi ──
   function handleDosyaSec(file: File) {
@@ -129,6 +135,7 @@ export default function WorkshopPage() {
     fd.append("email", form.email.trim());
     fd.append("telefon", form.telefon.trim());
     fd.append("workshop_ids", JSON.stringify(Array.from(secili)));
+    fd.append("kategori", form.kategoriId);
     fd.append("dekont", dosya!);
 
     try {
@@ -339,9 +346,6 @@ export default function WorkshopPage() {
                               {w.sure}
                             </span>
                           )}
-                          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 700, color: "var(--primary-700)" }}>
-                            {w.fiyat.toLocaleString("tr-TR")} ₺
-                          </span>
                         </div>
 
                         {/* Kontenjan bar */}
@@ -466,6 +470,35 @@ export default function WorkshopPage() {
                   />
                 </div>
               </div>
+
+              {/* Katılımcı Tipi */}
+              <div style={{ marginTop: "1rem" }}>
+                <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "1px", color: "var(--text-muted)", display: "block", marginBottom: "0.45rem" }}>
+                  Katılımcı Tipi *
+                </label>
+                <select
+                  name="kategoriId"
+                  value={form.kategoriId}
+                  onChange={(e) => setForm((f) => ({ ...f, kategoriId: e.target.value }))}
+                  style={{
+                    width: "100%", padding: "0.85rem 1rem",
+                    fontFamily: "var(--font-ui)", fontSize: "0.95rem",
+                    border: "1px solid var(--neutral-200)",
+                    borderRadius: "10px", outline: "none",
+                    background: "white", cursor: "pointer",
+                    appearance: "none" as const,
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23918c84' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  {KATEGORILER.map((k) => (
+                    <option key={k.id} value={k.id}>
+                      {k.label} — {k.fiyat.toLocaleString("tr-TR")} ₺ / workshop
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* ── ÖDEME BİLGİLERİ ── */}
@@ -496,7 +529,7 @@ export default function WorkshopPage() {
                   {seciliWorkshoplar.map((w) => (
                     <div key={w.id} style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-ui)", fontSize: "0.84rem", color: "var(--neutral-700)", padding: "0.2rem 0" }}>
                       <span>{w.isim}</span>
-                      <span style={{ fontWeight: 700 }}>{w.fiyat.toLocaleString("tr-TR")} ₺</span>
+                      <span style={{ fontWeight: 700 }}>{seciliKategori.fiyat.toLocaleString("tr-TR")} ₺</span>
                     </div>
                   ))}
                   <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-ui)", fontSize: "1rem", fontWeight: 800, color: "var(--primary-800)", marginTop: "0.6rem", paddingTop: "0.6rem", borderTop: "1px solid var(--neutral-200)" }}>

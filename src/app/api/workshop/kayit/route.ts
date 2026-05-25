@@ -53,7 +53,12 @@ export async function POST(request: NextRequest) {
     const email = (formData.get('email') as string)?.trim()
     const telefon = (formData.get('telefon') as string)?.trim() || ''
     const workshopIdsRaw = formData.get('workshop_ids') as string
+    const kategori = (formData.get('kategori') as string)?.trim() || 'ogrenci'
     const dekont = formData.get('dekont') as File | null
+
+    // Kategori bazlı fiyat (server-side)
+    const FIYATLAR: Record<string, number> = { ogrenci: 1500, hekim: 3000 }
+    const fiyatPerWorkshop = FIYATLAR[kategori] ?? 1500
 
     // ── Zorunlu alan doğrulaması ──
     if (!isim || !soyisim || !email || !workshopIdsRaw || !dekont) {
@@ -139,7 +144,8 @@ export async function POST(request: NextRequest) {
       .in('id', workshopIds)
 
     const workshopIsimleri = (workshopDetay ?? []).map((w) => w.isim).join(', ')
-    const toplamFiyat = (workshopDetay ?? []).reduce((sum, w) => sum + (w.fiyat ?? 0), 0)
+    const toplamFiyat = workshopIds.length * fiyatPerWorkshop
+    const kategoriLabel = kategori === 'hekim' ? 'Diş Hekimi / Akademisyen' : 'Öğrenci'
 
     // ── Benzersiz ref kodu üret ──
     let refKodu = refKoduUret()
@@ -180,6 +186,7 @@ export async function POST(request: NextRequest) {
       workshop_ids: workshopIds,
       workshop_isimleri: workshopIsimleri,
       toplam_fiyat: toplamFiyat,
+      kategori,
       dekont_path: filename,
       dekont_yuklendi: true,
     })
@@ -214,8 +221,9 @@ export async function POST(request: NextRequest) {
               <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Ad Soyad:</td><td style="padding: 8px;">${isim} ${soyisim}</td></tr>
               <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">E-posta:</td><td style="padding: 8px;">${email}</td></tr>
               <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Telefon:</td><td style="padding: 8px;">${telefon || '—'}</td></tr>
-              <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Workshoplar:</td><td style="padding: 8px;">${workshopIsimleri}</td></tr>
-              <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Toplam Tutar:</td><td style="padding: 8px; font-weight: bold;">${toplamFiyat.toLocaleString('tr-TR')} ₺</td></tr>
+              <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Katılımcı Tipi:</td><td style="padding: 8px;">${kategoriLabel}</td></tr>
+              <tr style="background:#f8f6f3;"><td style="padding: 8px; color: #55524d; font-weight: bold;">Workshoplar:</td><td style="padding: 8px;">${workshopIsimleri}</td></tr>
+              <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Toplam Tutar:</td><td style="padding: 8px; font-weight: bold;">${toplamFiyat.toLocaleString('tr-TR')} ₺</td></tr>
               <tr><td style="padding: 8px; color: #55524d; font-weight: bold;">Kayıt Tarihi:</td><td style="padding: 8px;">${new Date().toLocaleString('tr-TR')}</td></tr>
             </table>
             <p style="margin-top: 1.5rem; color: #918c84; font-size: 0.8rem;">Dekont ekte bulunmaktadır.</p>

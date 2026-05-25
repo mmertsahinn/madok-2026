@@ -119,6 +119,52 @@ function OdemeForm() {
           kayıt onayınız <strong>{form.email}</strong> adresine gönderilecektir.
           Bu işlem 1–2 iş günü sürebilir.
         </p>
+        {/* Workshop CTA */}
+        <div style={{
+          background: "var(--accent-50)",
+          border: "1.5px solid var(--accent-300)",
+          borderRadius: "14px",
+          padding: "1.5rem",
+          margin: "0 auto 1.5rem",
+          maxWidth: "400px",
+          textAlign: "center",
+        }}>
+          <div style={{
+            fontFamily: "var(--font-ui)",
+            fontSize: "0.72rem",
+            fontWeight: 700,
+            textTransform: "uppercase" as const,
+            letterSpacing: "1.5px",
+            color: "var(--primary-500)",
+            marginBottom: "0.5rem",
+          }}>
+            Sonraki Adım
+          </div>
+          <p style={{
+            fontFamily: "var(--font-ui)",
+            fontSize: "0.88rem",
+            color: "var(--neutral-700)",
+            lineHeight: 1.6,
+            marginBottom: "1rem",
+          }}>
+            Workshop kaydı <strong>ayrı bir kayıttır.</strong> Workshoplara katılmak istiyorsanız aşağıdan kayıt olun.
+          </p>
+          <a href="/workshop" style={{
+            display: "inline-block",
+            background: "var(--primary-600)",
+            color: "white",
+            padding: "0.75rem 1.5rem",
+            borderRadius: "10px",
+            fontFamily: "var(--font-ui)",
+            fontSize: "0.9rem",
+            fontWeight: 700,
+            textDecoration: "none",
+            letterSpacing: "0.3px",
+          }}>
+            Workshop Kaydı Yap →
+          </a>
+        </div>
+
         <a href="/" style={backBtn}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M11 7H3M3 7L6.5 3.5M3 7L6.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

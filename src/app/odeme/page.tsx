@@ -203,6 +203,38 @@ function OdemeForm() {
         </div>
 
 
+        {/* Workshop Linki */}
+        <div style={{
+          marginBottom: "1.5rem",
+          background: "var(--accent-50)",
+          border: "1px solid var(--accent-200)",
+          borderRadius: "10px",
+          padding: "0.9rem 1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "1rem",
+        }}>
+          <div style={{ fontFamily: "var(--font-ui)", fontSize: "0.85rem", color: "var(--neutral-700)" }}>
+            <strong style={{ color: "var(--primary-700)" }}>Workshop kaydı açık!</strong>
+            {" "}Kongre kaydından sonra workshop seçimi yapabilirsiniz.
+          </div>
+          <a href="/workshop" style={{
+            flexShrink: 0,
+            background: "var(--primary-600)",
+            color: "white",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            fontFamily: "var(--font-ui)",
+            fontSize: "0.8rem",
+            fontWeight: 700,
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+          }}>
+            Workshop Kaydı →
+          </a>
+        </div>
+
         {/* Toplam Tutar Özeti */}
         <div style={{
           background: "var(--primary-800)", color: "white", padding: "1.2rem",

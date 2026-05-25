@@ -390,7 +390,7 @@ export default function WorkshopPage() {
                   { name: "soyisim", label: "Soyad *", placeholder: "Soyadınız" },
                 ].map(({ name, label, placeholder }) => (
                   <div key={name}>
-                    <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 600, color: "var(--neutral-700)", display: "block", marginBottom: "0.4rem" }}>
+                    <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "1px", color: "var(--text-muted)", display: "block", marginBottom: "0.45rem" }}>
                       {label}
                     </label>
                     <input
@@ -399,11 +399,11 @@ export default function WorkshopPage() {
                       onChange={handleChange}
                       placeholder={placeholder}
                       style={{
-                        width: "100%", padding: "0.65rem 0.85rem",
-                        fontFamily: "var(--font-ui)", fontSize: "0.9rem",
-                        border: `1px solid ${hatalar[name] ? "#fca5a5" : "var(--neutral-200)"}`,
-                        borderRadius: "8px", outline: "none",
-                        background: hatalar[name] ? "#fef2f2" : "white",
+                        width: "100%", padding: "0.85rem 1rem",
+                        fontFamily: "var(--font-ui)", fontSize: "0.95rem",
+                        border: `1px solid ${hatalar[name] ? "#e05c5c" : "var(--neutral-200)"}`,
+                        borderRadius: "10px", outline: "none",
+                        background: hatalar[name] ? "#fff5f5" : "white",
                         boxSizing: "border-box",
                       }}
                     />
@@ -419,7 +419,7 @@ export default function WorkshopPage() {
               {/* E-posta/Telefon — responsive grid */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginTop: "1rem" }}>
                 <div>
-                  <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 600, color: "var(--neutral-700)", display: "block", marginBottom: "0.4rem" }}>
+                  <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "1px", color: "var(--text-muted)", display: "block", marginBottom: "0.45rem" }}>
                     E-posta *
                   </label>
                   <input
@@ -430,11 +430,11 @@ export default function WorkshopPage() {
                     placeholder="ornek@email.com"
                     autoComplete="email"
                     style={{
-                      width: "100%", padding: "0.65rem 0.85rem",
-                      fontFamily: "var(--font-ui)", fontSize: "0.9rem",
-                      border: `1px solid ${hatalar.email ? "#fca5a5" : "var(--neutral-200)"}`,
-                      borderRadius: "8px", outline: "none",
-                      background: hatalar.email ? "#fef2f2" : "white",
+                      width: "100%", padding: "0.85rem 1rem",
+                      fontFamily: "var(--font-ui)", fontSize: "0.95rem",
+                      border: `1px solid ${hatalar.email ? "#e05c5c" : "var(--neutral-200)"}`,
+                      borderRadius: "10px", outline: "none",
+                      background: hatalar.email ? "#fff5f5" : "white",
                       boxSizing: "border-box",
                     }}
                   />
@@ -446,7 +446,7 @@ export default function WorkshopPage() {
                 </div>
 
                 <div>
-                  <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 600, color: "var(--neutral-700)", display: "block", marginBottom: "0.4rem" }}>
+                  <label style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "1px", color: "var(--text-muted)", display: "block", marginBottom: "0.45rem" }}>
                     Telefon
                   </label>
                   <input
@@ -457,10 +457,10 @@ export default function WorkshopPage() {
                     placeholder="05XX XXX XX XX"
                     autoComplete="tel"
                     style={{
-                      width: "100%", padding: "0.65rem 0.85rem",
-                      fontFamily: "var(--font-ui)", fontSize: "0.9rem",
+                      width: "100%", padding: "0.85rem 1rem",
+                      fontFamily: "var(--font-ui)", fontSize: "0.95rem",
                       border: "1px solid var(--neutral-200)",
-                      borderRadius: "8px", outline: "none",
+                      borderRadius: "10px", outline: "none",
                       boxSizing: "border-box",
                     }}
                   />
@@ -469,31 +469,37 @@ export default function WorkshopPage() {
             </div>
 
             {/* ── ÖDEME BİLGİLERİ ── */}
-            <div style={{ background: "var(--gold-100)", border: "1px solid var(--gold-200)", borderRadius: "16px", padding: "1.5rem", marginBottom: "1.5rem" }}>
-              <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.5px", color: "var(--gold-900)", marginBottom: "0.75rem" }}>
+            <div style={{ background: "white", borderRadius: "16px", border: "1px solid var(--neutral-200)", padding: "1.75rem", marginBottom: "1.5rem" }}>
+              <div style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "1.5px", color: "var(--text-muted)", marginBottom: "0.75rem" }}>
                 Havale / EFT Bilgileri
+              </div>
+              <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.84rem", color: "var(--text-muted)", lineHeight: 1.75, marginBottom: "1.2rem" }}>
+                Ödeme yaparken açıklama kısmına <strong style={{ color: "var(--text-primary)" }}>Ad Soyad ve WRKP2026</strong> yazılması zorunludur.
               </p>
-              <div style={{ fontFamily: "var(--font-ui)", fontSize: "0.85rem", color: "var(--neutral-800)", lineHeight: 2 }}>
-                <strong>Banka:</strong> Ziraat Bankası<br />
-                <strong>Hesap Sahibi:</strong> Burdur Mehmet Akif Ersoy Üniversitesi<br />
-                <strong>IBAN:</strong>{" "}
-                <span style={{ fontFamily: "monospace", fontWeight: 700, letterSpacing: "1px" }}>
-                  TR62 0001 0015 8254 4728 4452 80
-                </span>
+              <div style={{ background: "var(--bg-secondary)", borderRadius: "10px", padding: "0.4rem 1.2rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0", borderBottom: "1px solid var(--neutral-200)" }}>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--text-muted)" }}>Alıcı</span>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.82rem", fontWeight: 600, color: "var(--text-primary)", textAlign: "right", maxWidth: "65%" }}>
+                    M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK.
+                  </span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0" }}>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--text-muted)" }}>IBAN</span>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.88rem", fontWeight: 700, color: "var(--primary-700)", letterSpacing: "0.5px" }}>
+                    TR62 0001 0015 8254 4728 4452 80
+                  </span>
+                </div>
               </div>
 
               {secili.size > 0 && (
-                <div style={{ marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid var(--gold-200)" }}>
-                  <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.82rem", color: "var(--gold-900)", marginBottom: "0.3rem" }}>
-                    <strong>Seçilen Workshoplar:</strong>
-                  </p>
+                <div style={{ marginTop: "1.2rem", paddingTop: "1.2rem", borderTop: "1px solid var(--neutral-200)" }}>
                   {seciliWorkshoplar.map((w) => (
-                    <div key={w.id} style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-ui)", fontSize: "0.82rem", color: "var(--neutral-700)", padding: "0.15rem 0" }}>
+                    <div key={w.id} style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-ui)", fontSize: "0.84rem", color: "var(--neutral-700)", padding: "0.2rem 0" }}>
                       <span>{w.isim}</span>
                       <span style={{ fontWeight: 700 }}>{w.fiyat.toLocaleString("tr-TR")} ₺</span>
                     </div>
                   ))}
-                  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-ui)", fontSize: "1rem", fontWeight: 800, color: "var(--gold-800)", marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: "1px solid var(--gold-300)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--font-ui)", fontSize: "1rem", fontWeight: 800, color: "var(--primary-800)", marginTop: "0.6rem", paddingTop: "0.6rem", borderTop: "1px solid var(--neutral-200)" }}>
                     <span>Toplam</span>
                     <span>{toplamFiyat.toLocaleString("tr-TR")} ₺</span>
                   </div>

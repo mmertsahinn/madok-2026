@@ -38,6 +38,24 @@ const speakers = [
     alan: "Ağız Diş Çene Cerrahisi",
     img: "/hocalar/uzm.dt. burakt mengütaş.jpeg",
   },
+  {
+    name: "Doç. Dr. Kubilay BARUTÇUGIL",
+    unvan: "Doç. Dr.",
+    alan: "Protetik Diş Tedavisi",
+    img: "/hocalar/doç.dr. kubilay barutçugil.jpeg",
+  },
+  {
+    name: "Prof. Dr. Alper SİNDEL",
+    unvan: "Prof. Dr.",
+    alan: "Ağız Diş Çene Cerrahisi",
+    img: "/hocalar/prof. dr. alper sindel.jpeg",
+  },
+  {
+    name: "Prof. Dr. Mükerrem HATİPOĞLU",
+    unvan: "Prof. Dr.",
+    alan: "Periodontoloji",
+    img: "/hocalar/prof. dr. mükerrem hatipoglu.jpeg",
+  },
 ];
 
 export default function SpeakersSection() {

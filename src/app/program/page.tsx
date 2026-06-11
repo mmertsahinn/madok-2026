@@ -80,6 +80,7 @@ const gun2: ProgramItem[] = [
     anaSalon: "TME Artrosentezinde Güncel Yaklaşımlar",
     konusmaci: "Prof. Dr. Mehmet Fatih ŞENTÜRK",
     sozliBildiri: "Sözlü Bildiri Oturumu 1",
+    workshop: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",
   },
   {
     saat: "12.10 – 12.50",
@@ -87,6 +88,7 @@ const gun2: ProgramItem[] = [
     anaSalon: "Kemik Yetersizliklerinde Cerrahi Uygulamalar ve Güncel Alternatif Yaklaşımlar",
     konusmaci: "Prof. Dr. Alper SİNDEL",
     sozliBildiri: "Sözlü Bildiri Oturumu 2",
+    workshop: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",
   },
   {
     saat: "12.50 – 13.50",

@@ -50,7 +50,8 @@ const gun1: ProgramItem[] = [
   {
     saat: "16.45 – 18.45",
     type: "workshop",
-    workshop: "Doç. Dr. Hakan Yasin GÖNDER",
+    fullWidth: true,
+    aciklama: "Workshop Salonu — Doç. Dr. Hakan Yasin GÖNDER",
   },
 ];
 

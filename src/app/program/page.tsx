@@ -100,6 +100,7 @@ const gun2: ProgramItem[] = [
     anaSalon: "Sıfırdan Kliniğe Gerçek Deneyimler",
     konusmaci: "Dt. Onur YEDİKARA",
     sozliBildiri: "Sözlü Bildiri Oturumu 3",
+    workshop: "Prof. Dr. Alper SİNDEL",
   },
   {
     saat: "14.40 – 15.20",

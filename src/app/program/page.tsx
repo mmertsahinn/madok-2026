@@ -66,13 +66,12 @@ const gun2: ProgramItem[] = [
     type: "konusma",
     anaSalon: "Lazer Destekli Endodontik Tedavi: Gelenekten Geleceğe Minimalizm",
     konusmaci: "Prof. Dr. Taha ÖZYÜREK",
-    workshop: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",
   },
   {
     saat: "11.00 – 11.20",
     type: "ara",
-    fullWidth: true,
     aciklama: "☕ Kahve Arası",
+    workshop: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",
   },
   {
     saat: "11.20 – 12.00",
@@ -100,7 +99,6 @@ const gun2: ProgramItem[] = [
     anaSalon: "Sıfırdan Kliniğe Gerçek Deneyimler",
     konusmaci: "Dt. Onur YEDİKARA",
     sozliBildiri: "Sözlü Bildiri Oturumu 3",
-    workshop: "Prof. Dr. Alper SİNDEL",
   },
   {
     saat: "14.40 – 15.20",
@@ -119,6 +117,7 @@ const gun2: ProgramItem[] = [
     type: "konusma",
     anaSalon: "Full Ark İmplant Üstü Dijital Ölçümde Fotogrametri'nin Yeri",
     konusmaci: "Doç. Dr. Kubilay BARUTÇUGIL",
+    workshop: "Prof. Dr. Alper SİNDEL",
   },
   {
     saat: "16.30 – 17.10",
@@ -305,16 +304,20 @@ export default function ProgramPage() {
                 ) : (
                   <>
                     {/* Ana Salon */}
-                    <div style={{ padding: "0.9rem 1rem", borderRight: "1px solid var(--primary-100, #ede6de)" }}>
-                      {item.anaSalon ? (
-                        <>
+                    <div style={{ padding: "0.9rem 1rem", borderRight: "1px solid var(--primary-100, #ede6de)", display: "flex", alignItems: "center" }}>
+                      {item.type === "ara" && item.aciklama ? (
+                        <span style={{ fontFamily: "var(--font-ui)", fontWeight: 600, color: "var(--text-secondary, #666)", fontSize: "0.85rem" }}>
+                          {item.aciklama}
+                        </span>
+                      ) : item.anaSalon ? (
+                        <div>
                           <p style={{ fontFamily: "var(--font-ui)", fontWeight: 700, fontSize: "0.8rem", color: "var(--primary-700, #5a3a22)", marginBottom: "0.3rem" }}>
                             {item.konusmaci}
                           </p>
                           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--text-secondary, #555)", lineHeight: 1.5, fontStyle: "italic" }}>
                             &ldquo;{item.anaSalon}&rdquo;
                           </p>
-                        </>
+                        </div>
                       ) : (
                         <span style={{ color: "var(--text-muted)", fontSize: "0.75rem" }}>—</span>
                       )}
@@ -322,7 +325,11 @@ export default function ProgramPage() {
 
                     {/* Sözlü Bildiri */}
                     <div style={{ padding: "0.9rem 1rem", borderRight: "1px solid var(--primary-100, #ede6de)", display: "flex", alignItems: "center" }}>
-                      {item.sozliBildiri ? (
+                      {item.type === "ara" && item.aciklama ? (
+                        <span style={{ fontFamily: "var(--font-ui)", fontWeight: 600, color: "var(--text-secondary, #666)", fontSize: "0.85rem" }}>
+                          {item.aciklama}
+                        </span>
+                      ) : item.sozliBildiri ? (
                         <span style={{
                           background: "#eef2ff",
                           color: "#3a4fa8",

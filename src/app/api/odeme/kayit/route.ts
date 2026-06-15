@@ -97,12 +97,6 @@ export async function POST(request: NextRequest) {
               <li><a href="${siteUrl}/odeme" style="color: #8f6b56;">${siteUrl}/odeme</a> adresine gidip <strong>Adım 2</strong>'yi tamamlayın</li>
               <li>Dekont PDF'ini ref kodunuzla birlikte yükleyin</li>
             </ol>
-            <div style="background: #f8f6f3; border-radius: 8px; padding: 1rem 1.5rem; margin-top: 1.5rem; font-size: 0.85rem; color: #55524d; line-height: 1.9;">
-              <strong>Banka:</strong> [Banka Adı]<br/>
-              <strong>Hesap Sahibi:</strong> MADOK 2026 Organizasyon<br/>
-              <strong>IBAN:</strong> TR00 0000 0000 0000 0000 0000 00<br/>
-              <strong>Açıklama:</strong> ${refKodu}
-            </div>
             <p style="margin-top: 1.5rem; color: #918c84; font-size: 0.8rem;">
               Seçilen paket: ${paket.trim()} &nbsp;·&nbsp; ${new Date().toLocaleString('tr-TR')}
             </p>

@@ -15,12 +15,6 @@ const announcements = [
     desc: "Sözlü bildiri ve poster başvuruları online olarak alınmaya başlanmıştır.",
     isNew: true,
   },
-  {
-    date: "4 Mayıs 2026",
-    title: "Ödeme Bilgileri",
-    desc: "Alıcı: M.A.ERSOY ÜNV.REKTÖRLÜĞÜ STRATEJİ GELŞ.DAİRE BŞK. | IBAN: TR 6200 0100 1582 5447 2844 5280",
-    isNew: true,
-  },
 ];
 
 export default function IntroSection() {

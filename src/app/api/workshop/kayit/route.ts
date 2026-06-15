@@ -255,12 +255,6 @@ export async function POST(request: NextRequest) {
               ${workshopIsimleri}<br/>
               <strong>Toplam Tutar:</strong> ${toplamFiyat.toLocaleString('tr-TR')} ₺
             </div>
-            <div style="background: #f0ece7; border-radius: 8px; padding: 1rem 1.5rem; margin-top: 1rem; font-size: 0.85rem; color: #55524d; line-height: 1.9;">
-              <strong>Banka:</strong> Ziraat Bankası<br/>
-              <strong>Hesap Sahibi:</strong> Burdur Mehmet Akif Ersoy Üniversitesi<br/>
-              <strong>IBAN:</strong> TR62 0001 0015 8254 4728 4452 80<br/>
-              <strong>Açıklama:</strong> ${refKodu}
-            </div>
             <p style="color: #918c84; font-size: 0.8rem; margin-top: 1.5rem;">
               Sorularınız için: <a href="mailto:madok.2026.burdur@gmail.com" style="color: #8f6b56;">madok.2026.burdur@gmail.com</a><br/>
               ${siteUrl}

@@ -107,11 +107,10 @@ export default function PaketlerPage() {
           <ScrollReveal>
             <p className="section-overline">Kayıt &amp; Paketler</p>
             <h1 className="section-title" style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)", marginBottom: "1rem" }}>
-              Size Uygun Paketi Seçin
+              Kayıtlar Kapatılmıştır
             </h1>
             <p className="section-desc" style={{ marginBottom: 0 }}>
-              MADOK 2026 Kongresi için erken kayıt fırsatlarından yararlanın.
-              Tüm paketlere KDV dahildir.
+              MADOK 2026 Kongresi kayıtları sona ermiştir. Kongremize gösterdiğiniz ilgi için teşekkür ederiz.
             </p>
           </ScrollReveal>
         </div>
@@ -177,9 +176,11 @@ export default function PaketlerPage() {
               </table>
             </div>
             <div style={{ textAlign: "center", marginTop: "2rem" }}>
-              <Link href="/odeme" className="btn-gold" style={{ padding: "1rem 2.5rem", fontSize: "1.1rem", borderRadius: "10px", display: "inline-block" }}>
-                Hemen Kayıt Ol
-              </Link>
+              <div style={{ display: "inline-block", background: "#fef2f2", border: "1.5px solid #fca5a5", borderRadius: "10px", padding: "1rem 2.5rem" }}>
+                <span style={{ fontFamily: "var(--font-ui)", fontSize: "1rem", fontWeight: 700, color: "#b91c1c", letterSpacing: "0.3px" }}>
+                  Kayıtlar Kapatılmıştır
+                </span>
+              </div>
             </div>
           </ScrollReveal>
         </div>

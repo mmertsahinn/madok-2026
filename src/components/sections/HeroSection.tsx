@@ -70,9 +70,9 @@ export default function HeroSection() {
               <div className="nh-mc-bottom">
                  <h2 className="nh-mc-date">19-21 Haziran</h2>
                  <p className="nh-mc-location">MAKÜ Konferans ve Sergi Salonu,<br/>Burdur, Türkiye</p>
-                 <Link href="/paketler" className="nh-mc-btn">
-                    Kayıt Ol
-                 </Link>
+                 <span className="nh-mc-btn" style={{ opacity: 0.6, cursor: "default", pointerEvents: "none" as const, background: "rgba(255,255,255,0.08)", borderColor: "rgba(255,255,255,0.2)" }}>
+                    Kayıtlar Kapatıldı
+                 </span>
               </div>
            </div>
            

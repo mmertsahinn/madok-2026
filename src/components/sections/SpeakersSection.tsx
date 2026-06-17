@@ -3,6 +3,13 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const speakers = [
   {
+    name: "Prof. Dr. Kürşat ER",
+    unvan: "Prof. Dr.",
+    alan: "Endodonti",
+    img: "/hocalar/prof. dr. kürşat er.jpeg",
+    onurKonugu: true,
+  },
+  {
     name: "Prof. Dr. Taha ÖZYÜREK",
     unvan: "Prof. Dr.",
     alan: "Endodonti",
@@ -13,12 +20,6 @@ const speakers = [
     unvan: "Prof. Dr.",
     alan: "Ağız Diş Çene Cerrahisi",
     img: "/hocalar/prof.dr. mehmet fatih şentürk.jpeg",
-  },
-  {
-    name: "Prof. Dr. Kürşat ER",
-    unvan: "Prof. Dr.",
-    alan: "Endodonti",
-    img: "/hocalar/prof. dr. kürşat er.jpeg",
   },
   {
     name: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",
@@ -75,8 +76,26 @@ export default function SpeakersSection() {
         <div className="speakers-grid">
           {speakers.map((s, i) => (
             <ScrollReveal key={i}>
-              <div className="speaker-card">
-                <div className="speaker-avatar" style={{ padding: 0, overflow: "hidden", background: "transparent" }}>
+              <div
+                className="speaker-card"
+                style={s.onurKonugu ? {
+                  border: "1.5px solid rgba(203, 168, 103, 0.45)",
+                  boxShadow: "0 0 18px rgba(203, 168, 103, 0.18)",
+                  background: "linear-gradient(160deg, #fffdf7 0%, #fff 100%)",
+                } : undefined}
+              >
+                <div
+                  className="speaker-avatar"
+                  style={{
+                    padding: 0,
+                    overflow: "hidden",
+                    background: "transparent",
+                    ...(s.onurKonugu ? {
+                      boxShadow: "0 0 0 2.5px rgba(203, 168, 103, 0.5)",
+                      borderRadius: "50%",
+                    } : {}),
+                  }}
+                >
                   <Image
                     src={s.img}
                     alt={s.name}

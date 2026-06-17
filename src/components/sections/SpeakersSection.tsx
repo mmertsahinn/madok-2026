@@ -15,10 +15,10 @@ const speakers = [
     img: "/hocalar/prof.dr. mehmet fatih şentürk.jpeg",
   },
   {
-    name: "Doç. Dr. Hakan Yasin GÖNDER",
-    unvan: "Doç. Dr.",
-    alan: "Restoratif Diş Tedavisi",
-    img: "/hocalar/do.dr Hakan yasin gönder.jpeg",
+    name: "Prof. Dr. Kürşat ER",
+    unvan: "Prof. Dr.",
+    alan: "Endodonti",
+    img: "/hocalar/prof. dr. kürşat er.jpeg",
   },
   {
     name: "Dr. Öğr. Üyesi Abdurrahman YALÇIN",

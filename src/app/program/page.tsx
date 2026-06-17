@@ -44,14 +44,7 @@ const gun1: ProgramItem[] = [
   {
     saat: "15.45 – 16.30",
     type: "konusma",
-    anaSalon: "Anterior Restorasyonlarda Estetiğe Giden Yol: Temel Prensipler ve Klinik Stratejiler",
-    konusmaci: "Doç. Dr. Hakan Yasin GÖNDER",
-  },
-  {
-    saat: "16.45 – 18.45",
-    type: "workshop",
-    fullWidth: true,
-    aciklama: "Workshop Salonu — Doç. Dr. Hakan Yasin GÖNDER",
+    konusmaci: "Prof. Dr. Kürşat ER",
   },
 ];
 
@@ -313,14 +306,16 @@ export default function ProgramPage() {
                         <span style={{ fontFamily: "var(--font-ui)", fontWeight: 600, color: "var(--text-secondary, #666)", fontSize: "0.85rem" }}>
                           {item.aciklama}
                         </span>
-                      ) : item.anaSalon ? (
+                      ) : item.konusmaci ? (
                         <div>
-                          <p style={{ fontFamily: "var(--font-ui)", fontWeight: 700, fontSize: "0.8rem", color: "var(--primary-700, #5a3a22)", marginBottom: "0.3rem" }}>
+                          <p style={{ fontFamily: "var(--font-ui)", fontWeight: 700, fontSize: "0.8rem", color: "var(--primary-700, #5a3a22)", marginBottom: item.anaSalon ? "0.3rem" : 0 }}>
                             {item.konusmaci}
                           </p>
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--text-secondary, #555)", lineHeight: 1.5, fontStyle: "italic" }}>
-                            &ldquo;{item.anaSalon}&rdquo;
-                          </p>
+                          {item.anaSalon && (
+                            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--text-secondary, #555)", lineHeight: 1.5, fontStyle: "italic" }}>
+                              &ldquo;{item.anaSalon}&rdquo;
+                            </p>
+                          )}
                         </div>
                       ) : (
                         <span style={{ color: "var(--text-muted)", fontSize: "0.75rem" }}>—</span>
